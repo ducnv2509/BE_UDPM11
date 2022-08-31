@@ -1,0 +1,36 @@
+2022-08-31 20:27:20.514  INFO DESKTOP-GB3C1VT --- [  restartedMain] e.u.v.BeUdpm11V1Application              : Starting BeUdpm11V1Application using Java 15.0.1 on DESKTOP-GB3C1VT with PID 28756 (D:\Fall2022\DuAnTotNghiep\Project\BE_UDPM_11_V1\target\classes started by ducit in D:\Fall2022\DuAnTotNghiep\Project\BE_UDPM_11_V1)
+2022-08-31 20:27:20.527  INFO DESKTOP-GB3C1VT --- [  restartedMain] e.u.v.BeUdpm11V1Application              : No active profile set, falling back to 1 default profile: "default"
+2022-08-31 20:27:20.588  INFO DESKTOP-GB3C1VT --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-08-31 20:27:20.588  INFO DESKTOP-GB3C1VT --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-08-31 20:27:21.733  INFO DESKTOP-GB3C1VT --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-31 20:27:21.754  INFO DESKTOP-GB3C1VT --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8 ms. Found 0 JPA repository interfaces.
+2022-08-31 20:27:22.645  INFO DESKTOP-GB3C1VT --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8080 (http)
+2022-08-31 20:27:22.663  INFO DESKTOP-GB3C1VT --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+2022-08-31 20:27:22.664  INFO DESKTOP-GB3C1VT --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2022-08-31 20:27:22.665  INFO DESKTOP-GB3C1VT --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-08-31 20:27:22.807  INFO DESKTOP-GB3C1VT --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2022-08-31 20:27:22.808  INFO DESKTOP-GB3C1VT --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2218 ms
+2022-08-31 20:27:22.999  INFO DESKTOP-GB3C1VT --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-08-31 20:27:23.076  INFO DESKTOP-GB3C1VT --- [  restartedMain] o.h.Version                              : HHH000412: Hibernate ORM core version 5.6.10.Final
+2022-08-31 20:27:23.308  INFO DESKTOP-GB3C1VT --- [  restartedMain] o.h.a.c.Version                          : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-08-31 20:27:23.473  INFO DESKTOP-GB3C1VT --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2022-08-31 20:27:24.014  INFO DESKTOP-GB3C1VT --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2022-08-31 20:27:24.031  INFO DESKTOP-GB3C1VT --- [  restartedMain] o.h.d.Dialect                            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2022-08-31 20:27:24.721  INFO DESKTOP-GB3C1VT --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-08-31 20:27:24.732  INFO DESKTOP-GB3C1VT --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-08-31 20:27:24.796  WARN DESKTOP-GB3C1VT --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-31 20:27:25.292  WARN DESKTOP-GB3C1VT --- [  restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: aeaeaf4d-99f3-42f4-a6ca-113054d45081
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2022-08-31 20:27:25.446  INFO DESKTOP-GB3C1VT --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@73cc199a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5a54b96e, org.springframework.security.web.context.SecurityContextPersistenceFilter@32a8f9aa, org.springframework.security.web.header.HeaderWriterFilter@4bff20a1, org.springframework.security.web.csrf.CsrfFilter@5dd4a543, org.springframework.security.web.authentication.logout.LogoutFilter@12a8fe50, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@64d227b5, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@7a43748c, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@556bc7f8, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@6d354b4c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@712472e1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@26ea2364, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5fb5e5ac, org.springframework.security.web.session.SessionManagementFilter@28a91626, org.springframework.security.web.access.ExceptionTranslationFilter@315d09c7, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@35bfd8e8]
+2022-08-31 20:27:25.509  INFO DESKTOP-GB3C1VT --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-08-31 20:27:25.553  INFO DESKTOP-GB3C1VT --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+2022-08-31 20:27:25.599  INFO DESKTOP-GB3C1VT --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-31 20:27:25.615  INFO DESKTOP-GB3C1VT --- [  restartedMain] e.u.v.BeUdpm11V1Application              : Started BeUdpm11V1Application in 5.754 seconds (JVM running for 7.763)
+2022-08-31 20:27:25.619  INFO DESKTOP-GB3C1VT --- [  restartedMain] e.u.v.BeUdpm11V1Application              : Info log
+2022-08-31 20:27:25.620  WARN DESKTOP-GB3C1VT --- [  restartedMain] e.u.v.BeUdpm11V1Application              : Hey, This is a warning!
+2022-08-31 20:27:25.621 ERROR DESKTOP-GB3C1VT --- [  restartedMain] e.u.v.BeUdpm11V1Application              : Oops! We have an Error. OK
+2022-08-31 20:27:25.621 FATAL DESKTOP-GB3C1VT --- [  restartedMain] e.u.v.BeUdpm11V1Application              : Damn! Fatal error. Please fix me.
