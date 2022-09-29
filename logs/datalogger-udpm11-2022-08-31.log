@@ -34,3 +34,6 @@ This generated password is for development use only. Your security configuration
 2022-08-31 20:27:25.620  WARN DESKTOP-GB3C1VT --- [  restartedMain] e.u.v.BeUdpm11V1Application              : Hey, This is a warning!
 2022-08-31 20:27:25.621 ERROR DESKTOP-GB3C1VT --- [  restartedMain] e.u.v.BeUdpm11V1Application              : Oops! We have an Error. OK
 2022-08-31 20:27:25.621 FATAL DESKTOP-GB3C1VT --- [  restartedMain] e.u.v.BeUdpm11V1Application              : Damn! Fatal error. Please fix me.
+2022-08-31 21:32:37.067  INFO DESKTOP-GB3C1VT --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-08-31 21:32:37.125  INFO DESKTOP-GB3C1VT --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2022-08-31 21:32:37.151  INFO DESKTOP-GB3C1VT --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
