@@ -12,9 +12,6 @@ public class OrderByStatusHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long order_purchase_id;
-
-    @OneToMany
-    @JoinColumn(name = "status_id")
-    private List<Status> status;
+    private Long status_id;
     private Date created_at;
 }
