@@ -2,11 +2,9 @@ package ecom.udpm.vn.models;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -14,6 +12,9 @@ public class OrderByStatusHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long order_purchase_id;
-    private Long status_id;
+
+    @OneToMany
+    @JoinColumn(name = "status_id")
+    private List<Status> status;
     private Date created_at;
 }
