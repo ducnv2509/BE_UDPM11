@@ -1,6 +1,6 @@
 package ecom.udpm.vn.service.impl;
 
-import ecom.udpm.vn.models.Supplier;
+import ecom.udpm.vn.entity.Supplier;
 import ecom.udpm.vn.repository.SupplierRepository;
 import ecom.udpm.vn.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;

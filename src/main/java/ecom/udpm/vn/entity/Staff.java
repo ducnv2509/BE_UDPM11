@@ -1,6 +1,6 @@
-package ecom.udpm.vn.models;
+package ecom.udpm.vn.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +9,10 @@ import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +31,6 @@ public class Staff {
     private Long created_by;
     private Long modify_by;
     private Long role_id;
+
+
 }

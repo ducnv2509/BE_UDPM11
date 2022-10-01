@@ -1,4 +1,4 @@
-package ecom.udpm.vn.models;
+package ecom.udpm.vn.entity;
 
 import lombok.Data;
 
