@@ -25,27 +25,27 @@ public class Supplier {
 
 
     @Column(name = "code", length = 100)
-    @Size(max = 100,message = "code can not be more then 100 character")
+    @Size(max = 100,message = "code không thể nhiều hơn 100 kí tự")
     private String code;
 
     @Lob
     @Column(name = "name", nullable = false)
-    @NotEmpty(message = "Name can not be null")
+    @NotEmpty(message = "Tên không thể bị trống")
     private String name;
 
     @Column(name = "email", nullable = false, length = 100)
-    @Email(message = "Email not valid")
-    @Size(max = 100,message = "code can not be more then 100 character")
+    @Email(message = "Email không hợp lệ")
+    @Size(max = 100,message = "email không thể hơn 100 kí tự")
     private String email;
 
     @Column(name = "phone", nullable = false, length = 20)
-    @NotEmpty(message = "Phone can not be null")
-    @Size(max = 20,message = "Phone number cant be more than 20")
+    @NotEmpty(message = "SĐT không thể bị trống")
+    @Size(max = 20,message = "SĐT không thể hơn 20 kí tự")
     private String phone;
 
     @Lob
     @Column(name = "address", nullable = false)
-    @NotEmpty(message = "Address can not be null")
+    @NotEmpty(message = "Địa chỉ không thể bị trống")
     private String address;
 
     @CreatedDate

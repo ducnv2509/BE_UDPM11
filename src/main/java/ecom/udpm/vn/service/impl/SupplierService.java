@@ -42,13 +42,13 @@ public class SupplierService implements ISupplierService {
     @Override
     public Supplier create(Supplier request, BindingResult bindingResult) {
         supplierRepo.findByPhone(request.getPhone()).ifPresent(e -> {
-            throw new AlreadyExistsException("phone number has already exits");
+            throw new AlreadyExistsException("Số điện thoại đã tồn tại");
         });
         supplierRepo.findByEmail(request.getEmail()).ifPresent(e -> {
-            throw new AlreadyExistsException("email has already exits");
+            throw new AlreadyExistsException("Email đã tồn tại");
         });
         supplierRepo.findByCode(request.getCode()).ifPresent(e -> {
-            throw new AlreadyExistsException("code has already exits");
+            throw new AlreadyExistsException("Code đã tồn tại");
         });
         if (bindingResult.hasErrors()) {
             throw utils.invalidInputException(bindingResult);
@@ -84,11 +84,11 @@ public class SupplierService implements ISupplierService {
         var t = supplierRepo.findById(request.getId()).orElseThrow(() -> new IllegalArgumentException(("id not found: " + request.getId())));
         if (!t.getPhone().equals(request.getPhone())) {
             supplierRepo.findByPhone(request.getPhone()).ifPresent(e -> {
-                throw new AlreadyExistsException("phone number has already exits");
+                throw new AlreadyExistsException("Số điện thoại đã tồn tại");
             });
         } else if (!t.getEmail().equals(request.getEmail())) {
             supplierRepo.findByEmail(request.getEmail()).ifPresent(e -> {
-                throw new AlreadyExistsException("email has already exits");
+                throw new AlreadyExistsException("email đã tồn tại");
             });
         }
         BindingResult result = utils.getListResult(bindingResult, request);
