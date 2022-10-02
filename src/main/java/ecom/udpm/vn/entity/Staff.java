@@ -12,7 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
