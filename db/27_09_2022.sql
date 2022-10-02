@@ -72,3 +72,5 @@ create table order_purchase_items
     price       double,
     total_price double
 );
+
+
