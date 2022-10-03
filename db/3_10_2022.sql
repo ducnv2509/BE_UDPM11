@@ -1,6 +1,7 @@
 
 -- b1: vs db local drop staff
--- b2: chạy các bảng dưới đây
+-- b2: run project
+-- b3: chạy các bảng dưới đây
 create table staff_seqid
 (
     id int auto_increment
