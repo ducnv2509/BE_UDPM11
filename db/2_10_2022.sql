@@ -28,14 +28,16 @@ create table supplier_seqid
 
 
 
-create definer = root@localhost trigger db_udpm11_v1.tg_supplier_insert
+create definer = udpm11@20.189.112.68 trigger db_udpm11_v1.tg_supplier_insert
     before insert
     on db_udpm11_v1.supplier
     for each row
     IF NEW.code is null or NEW.code = '' THEN
 begin
-INSERT INTO supplier_seqId VALUES (NULL);
+INSERT INTO supplier_seqid VALUES (NULL);
 SET NEW.code = CONCAT('SUPP', LPAD(LAST_INSERT_ID(), 5, '0'));
 end;
 end if;
+
+-- 9h 2/10
 
