@@ -3,6 +3,8 @@ package ecom.udpm.vn.entity;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -14,8 +16,8 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
+@ToString
 public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

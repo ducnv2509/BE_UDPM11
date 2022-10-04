@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,13 +17,16 @@ public interface IStaffRepo extends JpaRepository<Staff, Long> {
 
     Optional<Staff> findByCode(String code);
 
+    Optional<Staff> findByUsername(String username);
+
+
     @Query(value = "select s from Staff s where s.isDelete = false")
     List<Staff> findAllByIsDelete();
 
     @Modifying
     @Transactional
-    @Query(value = "update Staff s set s.statusAccount =:status, s.roleId =:idRole where s.id =:id")
-    void updateStaffById(Boolean status, Long idRole, Long id);
+    @Query(value = "update Staff s set s.statusAccount =:status, s.roleId =:idRole, s.updateAt=:date where s.id =:id")
+    void updateStaffById(Boolean status, Long idRole, Long id, Date date);
 
     @Modifying
     @Transactional
