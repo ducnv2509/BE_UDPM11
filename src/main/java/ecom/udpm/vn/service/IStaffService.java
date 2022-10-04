@@ -6,6 +6,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
+import java.util.Date;
 import java.util.List;
 
 public interface IStaffService {
@@ -31,7 +32,7 @@ public interface IStaffService {
 
     void updateStatusTrueAccount(List<Long> listId);
 
-    void updateStaffById(Boolean status, Long idRole, Long id);
+    void updateStaffById(Boolean status, Long idRole, Long id, Date date);
 
 
 
