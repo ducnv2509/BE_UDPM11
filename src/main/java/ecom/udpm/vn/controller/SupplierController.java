@@ -51,8 +51,7 @@ public class SupplierController {
 
     @GetMapping("{id}")
     public Supplier findById(@PathVariable(value = "id") Integer id) {
-        return supplierService.findById(id)
-                ;
+        return supplierService.findById(id);
     }
 
 
@@ -90,6 +89,7 @@ public class SupplierController {
         message = "Please upload an excel file!";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorMessage.builder().code("ALREADY_EXIST").message(message));
     }
+
     @GetMapping("/download")
     public ResponseEntity<Resource> getFile() {
         String filename = "supplier.xlsx";
