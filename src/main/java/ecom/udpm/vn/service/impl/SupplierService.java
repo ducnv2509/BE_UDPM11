@@ -61,6 +61,7 @@ public class SupplierService implements ISupplierService {
     public void save(MultipartFile file) {
         try {
             List<Supplier> suppliers = ExcelSupplier.excelToSuppliers(file.getInputStream());
+            System.out.println(suppliers);
             supplierRepo.saveAll(suppliers);
         } catch (Exception e) {
             throw new AlreadyExistsException("fail to store excel data");
