@@ -7,6 +7,7 @@ import ecom.udpm.vn.helper.Excel.ExcelStaff;
 import ecom.udpm.vn.helper.Utils;
 import ecom.udpm.vn.repository.IStaffRepo;
 import ecom.udpm.vn.service.IStaffService;
+import ecom.udpm.vn.service.SendMailService;
 import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.data.domain.Page;
@@ -32,6 +33,7 @@ public class StaffService implements IStaffService {
     private final IStaffRepo iStaffRepo;
 
     private final Utils utils;
+    private final SendMailService sendMailService;
 
     @Override
     public Page<Staff> findAll(Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
@@ -90,6 +92,9 @@ public class StaffService implements IStaffService {
                 s.setPassword(hash);
                 System.out.println("before " + s.getDob());
                 s.setDob(s.getDob());
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String strDate = dateFormat.format(s.getDob());
+                sendMailService.sendMail(s.getName(), s.getPhone(), s.getAddress(), s.getRoleId() == 1 ? "Quản lý" : "Nhân viên", s.getUsername(), strDate, s.getEmail());
 //                System.out.println("Converted String: " + strDate);
             }
 
