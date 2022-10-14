@@ -54,7 +54,6 @@ public class SupplierController {
         return supplierService.findById(id);
     }
 
-
     @PutMapping
     public Supplier update(@RequestBody @Valid Supplier entity, BindingResult bindingResult) {
         return supplierService.update(entity, bindingResult);
