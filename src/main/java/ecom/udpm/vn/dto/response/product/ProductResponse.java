@@ -28,7 +28,6 @@ public class ProductResponse {
     private BigDecimal inventoryQuantity;
 
     private List<ProductVariantImage> images = new ArrayList<>();
-
     private List<VariantResponse> variants = new ArrayList<>();
     private List<OptionResponse> options = new ArrayList<>();
     private List<CategoryResponse> categories = new ArrayList<>();

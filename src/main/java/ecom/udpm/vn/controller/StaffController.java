@@ -2,11 +2,14 @@ package ecom.udpm.vn.controller;
 
 import ecom.udpm.vn.entity.Staff;
 import ecom.udpm.vn.exception.ErrorMessage;
+import ecom.udpm.vn.exception.StaffException;
 import ecom.udpm.vn.helper.Excel.ExcelStaff;
 import ecom.udpm.vn.helper.Excel.ExcelSupplier;
 import ecom.udpm.vn.service.IStaffService;
+import ecom.udpm.vn.service.SendMailService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.json.JSONObject;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
@@ -18,7 +21,21 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+//-----------------
+import java.io.*;
+
+import java.net.HttpURLConnection;
+
+import java.net.MalformedURLException;
+
+import java.net.ProtocolException;
+
+import java.net.URL;
+
+//-----------------
 import javax.validation.Valid;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +46,7 @@ import java.util.List;
 @AllArgsConstructor
 public class StaffController {
     private final IStaffService staffService;
-
+    private final SendMailService sendMailService;
 
     @GetMapping
     public Page<Staff> getPagination(@RequestParam(value = "pageNumber", required = true) int pageNumber, @RequestParam(value = "pageSize", required = true) int pageSize, @RequestParam(value = "sortBy", required = false) String sortBy, @RequestParam(value = "sortDir", required = false) String sortDir) {
@@ -44,6 +61,13 @@ public class StaffController {
 
     @PostMapping
     public Staff create(@RequestBody @Valid Staff request, BindingResult bindingResult) {
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String strDate = dateFormat.format(request.getDob());
+            sendMailService.sendMail(request.getName(), request.getPhone(), request.getAddress(), request.getRoleId() == 1 ? "Quản lý" : "Nhân viên", request.getUsername(), strDate, request.getEmail());
+        } catch (Exception e) {
+            throw new StaffException("Server email error");
+        }
         return this.staffService.create(request, bindingResult);
     }
 

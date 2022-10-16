@@ -15,12 +15,10 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductVariantImage {
-
     @Id
     private Integer id;
     @Lob
     private String source;
-
     private Integer productVariantId;
 
     @CreatedDate
