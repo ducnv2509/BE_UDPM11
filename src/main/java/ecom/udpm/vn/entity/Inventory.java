@@ -1,8 +1,6 @@
 package ecom.udpm.vn.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -11,47 +9,51 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.sql.Timestamp;
-import java.time.Instant;
 
 @Entity
+@Table(name = "inventories")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Product {
+public class Inventory   {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
-    @NotBlank
-    @Size(max = 255)
-    private String name;
-
     @Column(name = "code", nullable = false, length = 100)
+    @NotNull
+    @NotBlank
     private String code;
 
     @Lob
-    @Column(name = "description", nullable = false)
-    private String description;
-
-    @CreatedDate
-    @Column(name = "create_at")
-    private Timestamp createAt;
-
-    @LastModifiedDate
-    @Column(name = "update_at")
-    private Timestamp updateAt;
+    @NotNull
+    @NotBlank
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @Lob
-    @Column(name = "image")
-    private String image;
+    @NotNull
+    @NotBlank
+    @Column(name = "address", nullable = false)
+    private String address;
 
-    @JoinColumn(name = "supplier_id")
-    private Integer supplierId;
+
+    @Column(name = "size", nullable = false)
+    private Boolean size = false;
+
+    @Column(name = "create_at", nullable = false)
+    @CreatedDate
+    private Timestamp createAt;
+
+    @Column(name = "update_at")
+    @LastModifiedDate
+    private Timestamp updateAt;
 
     @Column(name = "is_delete", nullable = false)
-    private Boolean isDelete = false;
+    private Boolean isDelete= false;
+
+
+
 }
