@@ -183,6 +183,7 @@ BEGIN
 
 END;
 
+-- run project
 # -------------
 
 alter table db_udpm11_v1.details_imports
@@ -196,12 +197,12 @@ alter table db_udpm11_v1.imports_status
 
 
 # -----------
-
-create
-    definer = root@localhost procedure select_create_at(IN producVariantId int)
-BEGIN
-    select create_at from product inner join product_variant on product.id = product_variant.product_id where product_variant.id = producVariantId;
-END;
+#
+# create
+#     definer = root@localhost procedure select_create_at(IN producVariantId int)
+# BEGIN
+#     select create_at from product inner join product_variant on product.id = product_variant.product_id where product_variant.id = producVariantId;
+# END;
 
 
 # --------------
@@ -223,3 +224,14 @@ END;
 
 alter table db_udpm11_v1.product
     drop column thumbnail;
+
+
+create
+    definer = root@localhost procedure get_productvariant_byname(IN inventoryId int, IN valueText text)
+BEGIN
+    begin
+        select * from product_variant inner join inventories_product_variant
+                                                 on product_variant.id = inventories_product_variant.product_variant_id
+        where inventories_product_variant.inventory_id = inventoryId and (product_variant.name like concat('%', valueText, '%') or product_variant.code like concat('%', valueText, '%'));
+    end;
+END;
