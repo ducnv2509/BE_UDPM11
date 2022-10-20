@@ -10,4 +10,6 @@ public interface IProductRepo extends JpaRepository<Product,Long> {
 
     @Query(value = "select * from  product  order by id DESC limit 1",nativeQuery = true)
     Product getTop();
+
+
 }

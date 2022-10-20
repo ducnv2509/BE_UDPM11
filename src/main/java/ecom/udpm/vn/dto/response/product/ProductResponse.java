@@ -33,17 +33,17 @@ public class ProductResponse {
     private List<CategoryResponse> categories = new ArrayList<>();
 
 
-    public void addVariant(VariantResponse variantResponse) {
-        this.variants.add(variantResponse);
-    }
-    public void addOption(OptionResponse optionResponse) {
-        this.options.add(optionResponse);
-    }
-    public void addImage(ProductVariantImage image) {
-        this.images.add(image);
-    }
-    public void addCategory(CategoryResponse category) {
-        this.categories.add(category);
-    }
+//    public void addVariant(VariantResponse variantResponse) {
+//        this.variants.add(variantResponse);
+//    }
+//    public void addOption(OptionResponse optionResponse) {
+//        this.options.add(optionResponse);
+//    }
+//    public void addImage(ProductVariantImage image) {
+//        this.images.add(image);
+//    }
+//    public void addCategory(CategoryResponse category) {
+//        this.categories.add(category);
+//    }
 
 }
