@@ -223,3 +223,7 @@ END;
 
 alter table db_udpm11_v1.product
     drop column thumbnail;
+
+alter table db_udpm11_v1.product_variant
+    modify position bit default  b'0'  null;
+
