@@ -23,20 +23,6 @@
             </Policies>
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
-        <SMTP name="MailAppender"
-              subject="Log4j2 Demo [PROD]"
-              to="ducit2509@gmail.com"
-              from="codedaoit@gmail.com"
-              smtpHost="smtp.gmail.com"
-              smtpPort="587"
-              smtpUsername="codedaoit@gamil.com"
-              smtpPassword="bvlquiuhagwlkfrw"
-              bufferSize="1">
-            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
-            <PatternLayout>
-                <Pattern>${LOG_PATTERN}</Pattern>
-            </PatternLayout>
-        </SMTP>
     </Appenders>
 
     <Loggers>
