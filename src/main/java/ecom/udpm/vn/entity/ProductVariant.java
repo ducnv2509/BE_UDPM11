@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,11 +20,15 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class ProductVariant  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Lob
+    @Column(name = "image")
+    private String image;
 
     @Column(name = "wholesale_price", nullable = false, precision = 20, scale = 2,columnDefinition = " default (0)")
     private BigDecimal wholesalePrice;
@@ -31,7 +36,10 @@ public class ProductVariant  implements Serializable {
     @Column(name = "sale_price", nullable = false, precision = 20, scale = 2, columnDefinition = " default (0)")
     private BigDecimal salePrice;
     @Column(name = "import_price", nullable = false, precision = 20, scale = 2, columnDefinition = " default (0)")
+
     private BigDecimal importPrice;
+    @Column(name = "code", nullable = false, length = 100)
+    private String code;
 
     private String option1;
     private String option2;
@@ -44,7 +52,8 @@ public class ProductVariant  implements Serializable {
     @NotNull
     private Integer productId;
 
-    private Integer position;
+    @Column(name = "position")
+    private Boolean position;
 
     @CreatedDate
     @Column(name = "create_at")

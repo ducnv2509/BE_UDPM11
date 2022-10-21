@@ -38,7 +38,6 @@ public class SupplierController {
         return supplierService.findAll(pageNumber, pageSize, sortBy, sortDir);
     }
 
-
     @GetMapping("/findAll")
     public List<Supplier> list() {
         return supplierService.findAll();
