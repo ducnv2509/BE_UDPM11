@@ -27,3 +27,15 @@ BEGIN
     where option1 = _op1 and option2 = _op2 and option3 = _op3 and product_id = _product_id;
 END;
 
+
+create
+    definer = root@localhost procedure getAllProduct()
+BEGIN
+    select product.id, pv.image, product.name, wholesale_price
+    from product
+             join product_variant pv on product.id = pv.product_id
+    where pv.position = true;
+END;
+
+
+
