@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface IProductRepo extends JpaRepository<Product, Long> {
 
@@ -15,5 +17,8 @@ public interface IProductRepo extends JpaRepository<Product, Long> {
 
     @Query(value = "select sum(ipv.quantity) as quantity, pv.productId ,pv.id, pv.name, pv.image, pv.wholesalePrice from ProductVariant  pv join InventoriesProductVariant  ipv on pv.id = ipv.product_variant_id where pv.productId=:id")
     ProductVariant getDetailProduct(Integer id);
+
+//    @Query(value = "Select p.id , pv.image, p.name, pv.wholesalePrice from Product  p join  ProductVariant  pv on p.id = pv.productId where pv.position = true")
+//    List<ProductVariant> getAllProduct();
 
 }

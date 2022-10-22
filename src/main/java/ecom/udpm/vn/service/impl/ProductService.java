@@ -3,6 +3,7 @@ package ecom.udpm.vn.service.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ecom.udpm.vn.dto.model.Metadata;
 import ecom.udpm.vn.dto.request.ProductAddRequest;
+import ecom.udpm.vn.dto.response.product.GetAllProduct;
 import ecom.udpm.vn.dto.response.product.ListProductResponse;
 import ecom.udpm.vn.dto.response.product.OptionProduct;
 import ecom.udpm.vn.entity.*;
@@ -11,8 +12,7 @@ import ecom.udpm.vn.repository.IProductRepo;
 import ecom.udpm.vn.repository.IVariantRepo;
 import ecom.udpm.vn.service.IProductService;
 import lombok.AllArgsConstructor;
-import org.json.JSONException;
-import org.json.JSONObject;
+import lombok.SneakyThrows;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -20,9 +20,7 @@ import org.springframework.validation.BindingResult;
 
 import javax.transaction.Transactional;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @AllArgsConstructor
 @Service
@@ -60,6 +58,17 @@ public class ProductService implements IProductService {
     @Override
     public ListProductResponse getProducts(Metadata metadata) {
         return null;
+    }
+
+    @SneakyThrows
+    @Override
+    public List<GetAllProduct> getAllProduct() {
+        String query = "call getAllProduct()";
+        Integer id = null;
+        String name = null;
+        String price = null;
+        String image = null;
+        return jdbcTemplate.query(query, new BeanPropertyRowMapper(GetAllProduct.class));
     }
 
     @Override
