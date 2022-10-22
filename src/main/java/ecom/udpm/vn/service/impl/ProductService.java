@@ -83,7 +83,7 @@ public class ProductService implements IProductService {
         String option2 = p.get(0).getOP2();
         String option3 = p.get(0).getOP3();
 
-        json.put("name", productVariant.getName());
+        json.put("name", productVariant.getName().split("-")[0]);
         json.put("image", productVariant.getImage());
         json.put("quantity", productVariant.getQuantity());
         json.put("id", productVariant.getId());
