@@ -52,7 +52,8 @@ public class ProductVariant  implements Serializable {
     @NotNull
     private Integer productId;
 
-    private Integer position;
+    @Column(name = "position")
+    private Boolean position;
 
     @CreatedDate
     @Column(name = "create_at")

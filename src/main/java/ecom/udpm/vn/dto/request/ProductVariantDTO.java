@@ -14,10 +14,10 @@ public class ProductVariantDTO {
     private Integer id;
     private String code;
     private String name;
+    private String image;
     private Integer quantity;
     private BigDecimal importPrice;
     private Integer minQuantity;
     private Timestamp createAt;
-    private String image;
 
 }
