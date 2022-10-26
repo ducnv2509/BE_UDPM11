@@ -32,11 +32,12 @@ public class CartServiceImpl implements ICartService {
 
     @Override
     public List addItems(Long id, Long id_pr, Integer quantity) {
+        // id la id user id_pr id productvarient, quantity
         String query = "call createCart(?,?,?)";
         String query_quantity = "call convertTo0(?,?)";
         CartItems quantity_item = (CartItems) jdbcTemplate.query(query_quantity, new BeanPropertyRowMapper(CartItems.class), id, id_pr).get(0);
-        System.out.println("BUG2" + quantity_item.getQuantity());
-        System.out.println("BUG 3 " + this.iCartItemsRepo.getQuantity(id.intValue()));
+//        System.out.println("BUG2" + quantity_item.getQuantity());
+//        System.out.println("BUG 3 " + this.iCartItemsRepo.getQuantity(id.intValue()));
         if ((quantity_item.getQuantity() + quantity) > this.iCartItemsRepo.getQuantity(id_pr.intValue())) {
             throw new CartException("Số lượng trong kho không đủ");
         }

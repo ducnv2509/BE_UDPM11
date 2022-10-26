@@ -24,6 +24,7 @@ public class CartController {
 
     @PostMapping("/{id}")
     public ResponseEntity<?> createCart(@RequestBody CartItems cartItems, @PathVariable Long id) {
+        // id: la id user
         System.out.println("inController");
         return ResponseEntity.ok(cartService.addItems(id, cartItems.getId_product().longValue(), cartItems.getQuantity()));
     }
