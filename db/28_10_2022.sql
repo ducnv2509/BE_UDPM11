@@ -39,11 +39,11 @@ create
     definer = root@localhost procedure createCart(IN _account_id int, IN _id_product int, IN _quantity int)
 BEGIN
     declare id_cart_main long;
-    select id into id_cart_main from cart where account_id = _account_id;
     if (!EXISTS(select * from cart where account_id = _account_id))
     then
         insert into cart(account_id, total_quantity, total_price)
         values (_account_id, null, null);
+        select id into id_cart_main from cart where account_id = _account_id;
         insert into cart_items (id_cart, id_product, quantity, price, total)
         VALUES (id_cart_main, _id_product, _quantity, null, null);
     else
@@ -62,4 +62,6 @@ BEGIN
     select * from cart_items where id_product = _id_product and id_cart = id_cart_main;
 
 END;
+
+
 
