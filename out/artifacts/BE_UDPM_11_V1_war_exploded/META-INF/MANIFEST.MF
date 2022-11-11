@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: ducit
+Build-Jdk: Oracle OpenJDK version 15.0.1
+Implementation-Title: BE_UDPM_11_V1
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: ecom.udpm.vn
+Main-Class: ${start-class}
+

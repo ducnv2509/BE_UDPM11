@@ -23,7 +23,7 @@ import java.util.List;
 @RestController
 @Log4j2
 @CrossOrigin("*")
-@RequestMapping("api/suppliers")
+@RequestMapping("/api/suppliers")
 @AllArgsConstructor
 public class SupplierController {
 
