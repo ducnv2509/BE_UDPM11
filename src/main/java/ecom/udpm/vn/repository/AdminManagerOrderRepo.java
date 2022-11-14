@@ -14,4 +14,9 @@ public interface AdminManagerOrderRepo extends JpaRepository<OrderPurchase, Long
     @Transactional
     @Query("update OrderPurchase op set op.status =:status_id where op.id in(:listId)")
     void updateOrderMultipleByStatus(Integer status_id, List<Long> listId);
+
+    @Modifying
+    @Transactional
+    @Query("select op from OrderPurchase op where op.status =:status_id")
+    List<OrderPurchase> findAllByStatus(Integer status_id);
 }

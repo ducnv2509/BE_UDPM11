@@ -29,6 +29,10 @@ public class AdminManagerOrderController {
         return adminManagerOrderService.showOrderCustomer();
     }
 
+    @GetMapping("/findAll/status/{status_id}")
+    public List<OrderPurchase> findAllByStatus(@PathVariable Integer status_id) {
+        return adminManagerOrderService.showOrderCustomerByStatus(status_id);
+    }
     @PutMapping("/update-multiple/{status}")
     public void updateMultipleOrder(@PathVariable Integer status, @RequestBody List<Long> ids) {
         this.adminManagerOrderService.updateMultiOrderCustomer(ids, status);

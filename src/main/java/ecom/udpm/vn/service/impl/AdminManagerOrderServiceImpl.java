@@ -20,6 +20,11 @@ public class AdminManagerOrderServiceImpl implements AdminManagerOrderService {
     }
 
     @Override
+    public List<OrderPurchase> showOrderCustomerByStatus(Integer status_id) {
+        return this.adminManagerOrderRepo.findAllByStatus(status_id);
+    }
+
+    @Override
     public void updateMultiOrderCustomer(List<Long> listId, Integer statusId) {
         listId.forEach(id -> this.adminManagerOrderRepo.findById(id).orElseThrow(() -> new StaffException(("id not found: " + id))));
         this.adminManagerOrderRepo.updateOrderMultipleByStatus(statusId, listId);
