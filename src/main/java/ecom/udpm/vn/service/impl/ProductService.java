@@ -92,6 +92,10 @@ public class ProductService implements IProductService {
         json.put("option1", productVariant.getOption1());
         json.put("option2", productVariant.getOption2());
         json.put("option3", productVariant.getOption3());
+<<<<<<< HEAD
+=======
+
+>>>>>>> 717b0c8 (Update Signle Product)
         map.put("InfoProduct", json);
         map.put("Option1", option1.split(","));
         map.put("Option2", option2.split(","));

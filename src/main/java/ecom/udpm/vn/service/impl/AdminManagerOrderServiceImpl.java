@@ -1,12 +1,12 @@
 package ecom.udpm.vn.service.impl;
 
 import ecom.udpm.vn.dto.response.OrderPurchaseItem;
-import ecom.udpm.vn.entity.OrderByStatusHistory;
+import ecom.udpm.vn.dto.response.product.OrderReturnItemResponse;
+import ecom.udpm.vn.dto.response.product.OrderReturnResponse;
 import ecom.udpm.vn.entity.OrderPurchase;
 import ecom.udpm.vn.exception.StaffException;
 import ecom.udpm.vn.repository.AdminManagerOrderRepo;
 import ecom.udpm.vn.repository.IOderPurchaseItemRepo;
-import ecom.udpm.vn.repository.IOrderHistoryStatus;
 import ecom.udpm.vn.service.AdminManagerOrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -20,17 +20,11 @@ import java.util.List;
 public class AdminManagerOrderServiceImpl implements AdminManagerOrderService {
     private final AdminManagerOrderRepo adminManagerOrderRepo;
     private final IOderPurchaseItemRepo oderPurchaseItemRepo;
-    private final IOrderHistoryStatus orderHistoryStatus;
     private final JdbcTemplate jdbcTemplate;
 
     @Override
     public List<OrderPurchase> showOrderCustomer() {
         return this.adminManagerOrderRepo.findAll();
-    }
-
-    @Override
-    public List<OrderPurchase> showOrderCustomerByStatus(Integer status_id) {
-        return null;
     }
 
     @Override
@@ -47,12 +41,6 @@ public class AdminManagerOrderServiceImpl implements AdminManagerOrderService {
     @Override
     public void updateMultiOrderCustomer(List<Long> listId, Integer statusId) {
         listId.forEach(id -> this.adminManagerOrderRepo.findById(id).orElseThrow(() -> new StaffException(("id not found: " + id))));
-        String query = "insert into order_by_status_history(order_purchase_id, status_id, created_at)\n" +
-                "    VALUES ( ?, ?, \n" +
-                "            NOW());";
-        listId.forEach(
-                id -> jdbcTemplate.update(query, id, statusId)
-        );
         this.adminManagerOrderRepo.updateOrderMultipleByStatus(statusId, listId);
     }
 
@@ -64,13 +52,24 @@ public class AdminManagerOrderServiceImpl implements AdminManagerOrderService {
         return this.adminManagerOrderRepo.save(op);
     }
 
-//    select * from return_invoice
-//
-//    select * from return_item_invoice where id_return = ?
-//
-//    call updateStatusReturnInvoiceByAdmin(?,?)
-//    public void showOrderReturn() {
-//     jdbcTemplate.query("select * from order", new BeanPropertyRowMapper(OrderPurchaseItem.class), idOrder);
-//
-//    }
+    @Override
+    public List<OrderReturnResponse> showOrdeReturn() {
+        return  jdbcTemplate.query("select * from return_invoice", new BeanPropertyRowMapper(OrderReturnResponse.class) );
+    }
+
+    @Override
+    public List<OrderReturnItemResponse> showOrderReturnItemByIdOrder(Long idOrderReturn) {
+        String sql = "select pr.name,pr.image,concat(pr.option1,',',pr.option2,',',pr.option3,',') as optionProduct,oitem.quantity,oitem.price,oitem.quantity*oitem.price as totalPrice\n" +
+                "from return_item_invoice reitem\n" +
+                "    join order_purchase_items oitem on reitem.id_purchase_item = oitem.id\n" +
+                "    join product_variant pr on pr.id = oitem.id_product\n" +
+                "    where id_return = ?";
+        return  jdbcTemplate.query(sql, new BeanPropertyRowMapper(OrderReturnItemResponse.class), idOrderReturn );
+    }
+
+    @Override
+    public OrderReturnResponse updateOrderReturn(Long id, Integer statusId) {
+        String sql = "call updateStatusReturnInvoiceByAdmin(?,?)";
+        return (OrderReturnResponse) jdbcTemplate.query(sql, new BeanPropertyRowMapper(OrderReturnResponse.class), statusId ,id).get(0);
+    }
 }

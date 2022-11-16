@@ -2,6 +2,8 @@ package ecom.udpm.vn.controller;
 
 
 import ecom.udpm.vn.dto.response.OrderPurchaseItem;
+import ecom.udpm.vn.dto.response.product.OrderReturnItemResponse;
+import ecom.udpm.vn.dto.response.product.OrderReturnResponse;
 import ecom.udpm.vn.entity.OrderPurchase;
 import ecom.udpm.vn.entity.OrderPurchaseItems;
 import ecom.udpm.vn.entity.Supplier;
@@ -30,15 +32,10 @@ public class AdminManagerOrderController {
         return adminManagerOrderService.showOrderCustomer();
     }
     @GetMapping("/showItem/{idOrder}")
-    public List<OrderPurchaseItem> showOrderItemByIdOrder(@PathVariable Long idOrder){
+    public List<OrderPurchaseItem> showOrderItemByIdOrder(@PathVariable Long idOrder) {
         return adminManagerOrderService.showOrderItemByIdOrder(idOrder);
     }
 
-
-    @GetMapping("/findAll/status/{status_id}")
-    public List<OrderPurchase> findAllByStatus(@PathVariable Integer status_id) {
-        return adminManagerOrderService.showOrderCustomerByStatus(status_id);
-    }
     @PutMapping("/update-multiple/{status}")
     public void updateMultipleOrder(@PathVariable Integer status, @RequestBody List<Long> ids) {
         this.adminManagerOrderService.updateMultiOrderCustomer(ids, status);
@@ -49,5 +46,16 @@ public class AdminManagerOrderController {
     public void updateOrderCustomer(@PathVariable(value = "status") Integer status, @RequestBody Long ids) {
         this.adminManagerOrderService.updateOrderCustomer(ids, status);
     }
-
+    @GetMapping("/findAll/ReTurn")
+    public List<OrderReturnResponse> listReturn() {
+        return adminManagerOrderService.showOrdeReturn();
+    }
+    @GetMapping("/showItem/orderReturn/{idOrder}")
+    public List<OrderReturnItemResponse> showOrderReturnItemByIdOrder(@PathVariable Long idOrder){
+        return adminManagerOrderService.showOrderReturnItemByIdOrder(idOrder);
+    }
+    @PutMapping("/update-return-status/{status}")
+    public void updateOrderReturn(@PathVariable(value = "status") Integer status, @RequestParam Long idOrderReturn) {
+        this.adminManagerOrderService.updateOrderReturn(idOrderReturn, status);
+    }
 }
