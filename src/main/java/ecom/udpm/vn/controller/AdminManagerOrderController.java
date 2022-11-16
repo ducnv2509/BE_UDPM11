@@ -1,7 +1,9 @@
 package ecom.udpm.vn.controller;
 
 
+import ecom.udpm.vn.dto.response.OrderPurchaseItem;
 import ecom.udpm.vn.entity.OrderPurchase;
+import ecom.udpm.vn.entity.OrderPurchaseItems;
 import ecom.udpm.vn.entity.Supplier;
 import ecom.udpm.vn.service.AdminManagerOrderService;
 import lombok.AllArgsConstructor;
@@ -23,11 +25,15 @@ public class AdminManagerOrderController {
     @Autowired
     AdminManagerOrderService adminManagerOrderService;
 
-
     @GetMapping("/findAll")
     public List<OrderPurchase> list() {
         return adminManagerOrderService.showOrderCustomer();
     }
+    @GetMapping("/showItem/{idOrder}")
+    public List<OrderPurchaseItem> showOrderItemByIdOrder(@PathVariable Long idOrder){
+        return adminManagerOrderService.showOrderItemByIdOrder(idOrder);
+    }
+
 
     @GetMapping("/findAll/status/{status_id}")
     public List<OrderPurchase> findAllByStatus(@PathVariable Integer status_id) {
