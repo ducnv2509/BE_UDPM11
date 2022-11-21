@@ -6,15 +6,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Date;
+
 @AllArgsConstructor
 @Getter
 @Setter
 @NoArgsConstructor
 public class OrderReturnResponse {
-    private String name;
-    private String image;
-    private String optionProduct;
-    private int quantity;
-    private BigDecimal price;
-    private BigDecimal totalPrice;
+    private Long id;
+    private Long account_id;
+    private String account_name;
+    private String note;
+    private Long id_order_purchase;
+    private Date createDate;
+    private int statusReturn;
+    private BigDecimal totalPriceReturn;
+    private BigDecimal totalQuantityReturn;
 }

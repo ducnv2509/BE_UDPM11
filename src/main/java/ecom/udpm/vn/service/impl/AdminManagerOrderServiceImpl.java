@@ -28,6 +28,11 @@ public class AdminManagerOrderServiceImpl implements AdminManagerOrderService {
     }
 
     @Override
+    public List<OrderPurchase> showOrderCustomerByStatus(Integer status_id) {
+        return null;
+    }
+
+    @Override
     public List<OrderPurchaseItem> showOrderItemByIdOrder(Long idOrder) {
         this.adminManagerOrderRepo.findById(idOrder).orElseThrow(() -> new StaffException(("id not found: " + idOrder)));
         String query = "select o.id,o.quantity,o.price,o.total_price,p.image,p.name,p.option1,p.option2,p.option3\n" +
@@ -39,8 +44,15 @@ public class AdminManagerOrderServiceImpl implements AdminManagerOrderService {
     }
 
     @Override
-    public void updateMultiOrderCustomer(List<Long> listId, Integer statusId) {
+    public void updateMultiOrderCustomer(List<Long> listId, Integer statusId, String _action_by) {
         listId.forEach(id -> this.adminManagerOrderRepo.findById(id).orElseThrow(() -> new StaffException(("id not found: " + id))));
+        String query = " insert into order_by_status_history(order_purchase_id, status_id, created_at, action_by)\n" +
+                "    VALUES (?, ?,\n" +
+                "            NOW(), ?);";
+        for (Long ids:
+            listId ) {
+            jdbcTemplate.update(query, ids, statusId, _action_by);
+        }
         this.adminManagerOrderRepo.updateOrderMultipleByStatus(statusId, listId);
     }
 

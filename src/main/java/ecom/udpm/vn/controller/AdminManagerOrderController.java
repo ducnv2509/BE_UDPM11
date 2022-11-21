@@ -37,8 +37,8 @@ public class AdminManagerOrderController {
     }
 
     @PutMapping("/update-multiple/{status}")
-    public void updateMultipleOrder(@PathVariable Integer status, @RequestBody List<Long> ids) {
-        this.adminManagerOrderService.updateMultiOrderCustomer(ids, status);
+    public void updateMultipleOrder(@PathVariable Integer status, @RequestBody List<Long> ids, @RequestParam String action_by) {
+        this.adminManagerOrderService.updateMultiOrderCustomer(ids, status, action_by);
     }
 
 
@@ -46,7 +46,7 @@ public class AdminManagerOrderController {
     public void updateOrderCustomer(@PathVariable(value = "status") Integer status, @RequestBody Long ids) {
         this.adminManagerOrderService.updateOrderCustomer(ids, status);
     }
-    @GetMapping("/findAll/ReTurn")
+    @GetMapping("/findAll/orderReturn")
     public List<OrderReturnResponse> listReturn() {
         return adminManagerOrderService.showOrdeReturn();
     }

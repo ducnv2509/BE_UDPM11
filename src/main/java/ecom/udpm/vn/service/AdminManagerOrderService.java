@@ -13,7 +13,7 @@ public interface AdminManagerOrderService {
 
     List<OrderPurchaseItem> showOrderItemByIdOrder(Long idOrder);
 
-    void updateMultiOrderCustomer(List<Long> listId, Integer statusId);
+    void updateMultiOrderCustomer(List<Long> listId, Integer statusId, String action_by);
 
     OrderPurchase updateOrderCustomer(Long id, Integer statusId);
 
