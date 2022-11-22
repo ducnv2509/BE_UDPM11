@@ -44,6 +44,18 @@ public class AdminManagerOrderServiceImpl implements AdminManagerOrderService {
     }
 
     @Override
+    public List<OrderPurchase> searchOrdersByStatus(String querySearch, int status) {
+        String query = "select * from order_purchase where (account_name like concat('%', ?, '%') or address_id like  concat('%', ?, '%') or phone_customer like concat('%', ?, '%')) and status = ?";
+        return jdbcTemplate.query(query, new BeanPropertyRowMapper(OrderPurchase.class), querySearch, querySearch, querySearch, status);
+    }
+
+    @Override
+    public List<OrderPurchase> searchOrdersAll(String querySearch) {
+         String query = "select * from order_purchase where (account_name like concat('%', ?, '%') or address_id like concat('%', ?, '%') or phone_customer like concat('%', ?, '%'))";
+        return jdbcTemplate.query(query, new BeanPropertyRowMapper(OrderPurchase.class),querySearch, querySearch, querySearch);
+    }
+
+    @Override
     public void updateMultiOrderCustomer(List<Long> listId, Integer statusId, String _action_by) {
         listId.forEach(id -> this.adminManagerOrderRepo.findById(id).orElseThrow(() -> new StaffException(("id not found: " + id))));
         String query = " insert into order_by_status_history(order_purchase_id, status_id, created_at, action_by)\n" +

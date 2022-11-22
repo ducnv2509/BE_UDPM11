@@ -5,16 +5,12 @@ import ecom.udpm.vn.dto.response.OrderPurchaseItem;
 import ecom.udpm.vn.dto.response.product.OrderReturnItemResponse;
 import ecom.udpm.vn.dto.response.product.OrderReturnResponse;
 import ecom.udpm.vn.entity.OrderPurchase;
-import ecom.udpm.vn.entity.OrderPurchaseItems;
-import ecom.udpm.vn.entity.Supplier;
 import ecom.udpm.vn.service.AdminManagerOrderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Log4j2
@@ -31,6 +27,18 @@ public class AdminManagerOrderController {
     public List<OrderPurchase> list() {
         return adminManagerOrderService.showOrderCustomer();
     }
+
+    @GetMapping("/searchAllOrderByStatus/{status_id}")
+    public List<OrderPurchase> searchOrderByStatus(@PathVariable Integer status_id, @RequestParam String query) {
+        return adminManagerOrderService.searchOrdersByStatus(query, status_id);
+    }
+
+    @GetMapping("/searchAllOrder")
+    public List<OrderPurchase> searchOrderAll(@RequestParam String query) {
+        return adminManagerOrderService.searchOrdersAll(query);
+    }
+
+
     @GetMapping("/showItem/{idOrder}")
     public List<OrderPurchaseItem> showOrderItemByIdOrder(@PathVariable Long idOrder) {
         return adminManagerOrderService.showOrderItemByIdOrder(idOrder);
