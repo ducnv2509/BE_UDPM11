@@ -21,6 +21,8 @@ public interface AdminManagerOrderService {
 
     List<OrderReturnResponse> showOrdeReturn();
 
+    List<OrderReturnResponse> searchOrdersReturn(String querySearch);
+
     List<OrderReturnItemResponse> showOrderReturnItemByIdOrder(Long idOrder);
 
     Object updateOrderReturn(Long id, Integer statusId);

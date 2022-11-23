@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 public interface AdminManagerOrderRepo extends JpaRepository<OrderPurchase, Long> {
-
+    List<OrderPurchase> findAllByOrderByIdDesc();
     @Modifying
     @Transactional
     @Query("update OrderPurchase op set op.status =:status_id where op.id in(:listId)")

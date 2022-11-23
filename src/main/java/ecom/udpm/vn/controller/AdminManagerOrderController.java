@@ -38,6 +38,10 @@ public class AdminManagerOrderController {
         return adminManagerOrderService.searchOrdersAll(query);
     }
 
+    @GetMapping("/searchOrdersReturn")
+    public List<OrderReturnResponse> searchOrdersReturn(@RequestParam String query) {
+        return adminManagerOrderService.searchOrdersReturn(query);
+    }
 
     @GetMapping("/showItem/{idOrder}")
     public List<OrderPurchaseItem> showOrderItemByIdOrder(@PathVariable Long idOrder) {

@@ -24,7 +24,7 @@ public class AdminManagerOrderServiceImpl implements AdminManagerOrderService {
 
     @Override
     public List<OrderPurchase> showOrderCustomer() {
-        return this.adminManagerOrderRepo.findAll();
+        return this.adminManagerOrderRepo.findAllByOrderByIdDesc();
     }
 
     @Override
@@ -51,7 +51,7 @@ public class AdminManagerOrderServiceImpl implements AdminManagerOrderService {
 
     @Override
     public List<OrderPurchase> searchOrdersAll(String querySearch) {
-         String query = "select * from order_purchase where (account_name like concat('%', ?, '%') or address_id like concat('%', ?, '%') or phone_customer like concat('%', ?, '%'))";
+         String query = "select * from order_purchase where (account_name like concat('%', ?, '%') or id like concat('%', ?, '%') or address_id like concat('%', ?, '%') or phone_customer like concat('%', ?, '%')) Order By id desc";
         return jdbcTemplate.query(query, new BeanPropertyRowMapper(OrderPurchase.class),querySearch, querySearch, querySearch);
     }
 
@@ -78,9 +78,13 @@ public class AdminManagerOrderServiceImpl implements AdminManagerOrderService {
 
     @Override
     public List<OrderReturnResponse> showOrdeReturn() {
-        return  jdbcTemplate.query("select * from return_invoice", new BeanPropertyRowMapper(OrderReturnResponse.class) );
+        return  jdbcTemplate.query("select * from return_invoice order by id desc", new BeanPropertyRowMapper(OrderReturnResponse.class) );
     }
-
+    @Override
+    public List<OrderReturnResponse> searchOrdersReturn(String querySearch) {
+        String query = "select * from return_invoice where (account_name like concat('%', ?, '%') or id_order_purchase like  concat('%', ?, '%')) order by id desc";
+        return jdbcTemplate.query(query, new BeanPropertyRowMapper(OrderReturnResponse.class), querySearch, querySearch, querySearch);
+    }
     @Override
     public List<OrderReturnItemResponse> showOrderReturnItemByIdOrder(Long idOrderReturn) {
         String sql = "select pr.name,pr.image,concat(pr.option1,',',pr.option2,',',pr.option3,',') as optionProduct,oitem.quantity,oitem.price,oitem.quantity*oitem.price as totalPrice\n" +
