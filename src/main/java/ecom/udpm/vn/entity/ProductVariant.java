@@ -50,7 +50,7 @@ public class ProductVariant  implements Serializable {
     @Size(max = 250)
     private String name;
     @NotNull
-    private Integer productId;
+    private Long productId;
 
     @Column(name = "position")
     private Boolean position;
