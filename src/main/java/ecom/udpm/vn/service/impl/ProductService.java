@@ -38,6 +38,8 @@ public class ProductService implements IProductService {
     public ProductAddRequest save(ProductAddRequest request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) throw new RuntimeException("Input Invalid");
         Product product = request.getProduct();
+//        request.getVariants().get(0).setPosition(true);
+//        variantRepo.save(request.getVariants().get(0));
         product.setCode(getNewCode());
         request.setProduct(productRepo.save(product));
 
@@ -92,7 +94,6 @@ public class ProductService implements IProductService {
         json.put("option1", productVariant.getOption1());
         json.put("option2", productVariant.getOption2());
         json.put("option3", productVariant.getOption3());
-
         map.put("InfoProduct", json);
         map.put("Option1", option1.split(","));
         map.put("Option2", option2.split(","));

@@ -20,6 +20,7 @@ public class OrderPurchase {
     private Long id;
     private Integer account_id;
     private String account_name;
+    private String phone_customer;
     private String address_id;
     private String note;
     private Double total_price;
