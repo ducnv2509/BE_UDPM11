@@ -12,7 +12,7 @@ RUN mvn clean install -DskipTests
 # Run spring boot in Docker
 FROM openjdk:11
 
-COPY --from=build /opt/app/target/*.jar app.jar
+COPY /opt/app/target/*.jar app.jar
 
 ENV PORT 8083
 EXPOSE $PORT
