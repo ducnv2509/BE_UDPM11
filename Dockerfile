@@ -1,5 +1,5 @@
 # Docker Build Stage
-FROM maven:3-jdk-8-alpine AS build
+FROM maven:3-amazoncorretto-11 AS build
 
 
 # Copy folder in docker
@@ -17,4 +17,4 @@ COPY --from=build /opt/app/target/*.jar app.jar
 ENV PORT 8083
 EXPOSE $PORT
 
-ENTRYPOINT ["java","-jar","-Xmx1024M","-Dserver.port=${PORT}"]
+ENTRYPOINT ["java","-jar","-Xmx1024M","-Dserver.port=${PORT}","app.jar"]
