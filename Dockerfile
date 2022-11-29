@@ -10,7 +10,7 @@ RUN mvn clean install -DskipTests
 
 
 # Run spring boot in Docker
-FROM openjdk:8-jdk-alpine
+FROM openjdk:11
 
 COPY --from=build /opt/app/target/*.jar app.jar
 
