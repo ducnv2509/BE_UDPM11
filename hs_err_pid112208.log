@@ -27,7 +27,7 @@
 
 ---------------  S U M M A R Y ------------
 
-Command Line: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2021.3.3\lib\idea_rt.jar=65430:C:\Program Files\JetBrains\IntelliJ IDEA 2021.3.3\bin -Dfile.encoding=UTF-8 ecom.udpm.vn.models.Supplier
+Command Line: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2021.3.3\lib\idea_rt.jar=65430:C:\Program Files\JetBrains\IntelliJ IDEA 2021.3.3\bin -Dfile.encoding=UTF-8 ecom.udpm.vn.entity.Supplier
 
 Host: Intel(R) Core(TM) i5-1035G1 CPU @ 1.00GHz, 8 cores, 7G,  Windows 10 , 64 bit Build 22000 (10.0.22000.708)
 Time: Fri Aug 26 22:51:56 2022 SE Asia Standard Time elapsed time: 3.511043 seconds (0d 0h 0m 3s)
@@ -487,7 +487,7 @@ symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Pr
 
 VM Arguments:
 jvm_args: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2021.3.3\lib\idea_rt.jar=65430:C:\Program Files\JetBrains\IntelliJ IDEA 2021.3.3\bin -Dfile.encoding=UTF-8 
-java_command: ecom.udpm.vn.models.Supplier
+java_command: ecom.udpm.vn.entity.Supplier
 java_class_path (initial): D:\Fall2022\DuAnTotNghiep\Project\BE_UDPM_11_V1\target\classes;C:\Users\ducit\.m2\repository\org\springframework\boot\spring-boot-starter-data-jpa\2.7.3\spring-boot-starter-data-jpa-2.7.3.jar;C:\Users\ducit\.m2\repository\org\springframework\boot\spring-boot-starter-aop\2.7.3\spring-boot-starter-aop-2.7.3.jar;C:\Users\ducit\.m2\repository\org\aspectj\aspectjweaver\1.9.7\aspectjweaver-1.9.7.jar;C:\Users\ducit\.m2\repository\org\springframework\boot\spring-boot-starter-jdbc\2.7.3\spring-boot-starter-jdbc-2.7.3.jar;C:\Users\ducit\.m2\repository\com\zaxxer\HikariCP\4.0.3\HikariCP-4.0.3.jar;C:\Users\ducit\.m2\repository\org\springframework\spring-jdbc\5.3.22\spring-jdbc-5.3.22.jar;C:\Users\ducit\.m2\repository\jakarta\transaction\jakarta.transaction-api\1.3.3\jakarta.transaction-api-1.3.3.jar;C:\Users\ducit\.m2\repository\jakarta\persistence\jakarta.persistence-api\2.2.3\jakarta.persistence-api-2.2.3.jar;C:\Users\ducit\.m2\repository\org\hibernate\hibernate-core\5.6.10.Final\hibernate-core-5.6.10.Final.jar;C:\Users\ducit\.m2\repository\org\jboss\logging\jboss-logging\3.4.3.Final\jboss-logging-3.4.3.Final.jar;C:\Users\ducit\.m2\repository\net\bytebuddy\byte-buddy\1.12.13\byte-buddy-1.12.13.jar;C:\Users\ducit\.m2\repository\antlr\antlr\2.7.7\antlr-2.7.7.jar;C:\Users\ducit\.m2\repository\org\jboss\jandex\2.4.2.Final\jandex-2.4.2.Final.jar;C:\Users\ducit\.m2\repository\com\fasterxml\classmate\1.5.1\classmate-1.5.1.jar;C:\Users\ducit\.m2\repository\org\hibernate\common\hibernate-commons-annotations\5.1.2.Final\hibernate-commons-annotations-5.1.2.Final.jar;C:\Users\ducit\.m2\repository\org\glassfish\jaxb\jaxb-runtime\2.3.6\jaxb-runtime-2.3.6.jar;C:\Users\ducit\.m2\repository\org\glassfish\jaxb\txw2\2.3.6\txw2-2.3.6.jar;C:\Users\ducit\.m2\repository\com\sun\istack\istack-commons-runtime\3.0.12\istack-commons-runtime-3.0.12.jar;C:\Users\ducit\.m2\repository\org\springframework\data\spring-data-jpa\2.7.2\spring-data-jpa-2.7.2.jar;C:\Users\ducit\.m2\re
 Launcher Type: SUN_STANDARD
 

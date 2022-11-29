@@ -1,0 +1,41 @@
+1. API không dùng postman, test trên swagger2 :localhost:8080/swagger-ui/index.html
+
+2. API đặt tên chuẩn
+vd: sai-> @RequestMapping("/apiSupplier/")
+    đúng-> @RequestMapping("api/admin/...."),  @RequestMapping("api/....")
+
+3. Enitity class không dùng @Data -> dùng @Setter, @Getter, @RequiredArgsConstructor, @NoArgsConstructor
+
+4. K dùng @Autowired
+vd: 
+sai-> @Autowired
+    SupplierService supplierService;
+
+đúng-> khai báo @AllArgsConstructor ở class đó rồi viết như bình thường :private  final SupplierService supplierService;
+
+
+5. Khi dùng swagger nhớ khai báo các note ở file controller để ng ta còn biết api này dùng làm gì
+vd: 
+    @ApiOperation(value = "Xác thực bằng với firebase",
+            notes = "Xác thực bằng firebase không gửi password\n" +
+                    "Gửi kèm password khi quên mật khẩu / tạo mới tài khoản có dùng mật khẩu")
+    @PostMapping(value = "/auth")
+    public AuthResponse login(@RequestBody AuthObject body) {
+        return accountService.loginWithFirebase(body);
+    }
+
+6. Khi có các dto resquest, hay param các api truyền đi thì cũng phải khai báo
+vd:  @ApiModelProperty(value = "Id của order")
+    private Long id;
+
+7. Nếu cảm thấy chức năng đấy quá đơn giản thì chỉ cần tạo repo, k tạo service nữa. Ở controller dùng thẳng repo -> k tạo nhiều file, tìm khó
+
+8. Không dùng kiểu dữ liệu Date, dùng Instant
+
+9. Đặt tên đúng CHÍNH TẢ. Không đặt tên vô nghĩa pleaseeeee
+
+10. Tập dùng stream trong java đi
+
+11.
+
+to be continued...
