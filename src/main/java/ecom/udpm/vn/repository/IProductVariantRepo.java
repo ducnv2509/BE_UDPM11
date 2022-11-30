@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface IProductVariantRepo extends JpaRepository<ProductVariant,Integer> {
+public interface IProductVariantRepo extends JpaRepository<ProductVariant,Long> {
 
     @Query(value = "call get_productvariant_byname(?1,?2)", nativeQuery = true)
-    List<ProductVariant> listProductVariantByName(Integer id, String name);
+    List<ProductVariant> listProductVariantByName(Long id, String name);
 }

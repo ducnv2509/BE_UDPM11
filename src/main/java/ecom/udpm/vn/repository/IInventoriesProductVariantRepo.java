@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 @Repository
 public interface IInventoriesProductVariantRepo extends JpaRepository<InventoriesProductVariant, Integer> {
 
-    InventoriesProductVariant findByInventoryIdAndProductVariantId(Integer inventoryId, Integer productId);
+    InventoriesProductVariant findByInventoryIdAndProductVariantId(Integer inventoryId, Long productId);
 
 
     @Modifying
