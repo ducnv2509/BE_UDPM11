@@ -21,5 +21,5 @@
 
 FROM tomcat:8.0.51-jre8-alpine
 RUN rm -rf /opt/tomcat/webapps/*
-COPY ./target/BE_UDPM_11_V1-0.0.1-SNAPSHOT.war /opt/tomcat/webapps/BE_UDPM_11_V1-0.0.1-SNAPSHOT.war
+COPY ./target/BE_UDPM_11_V1-0.0.1-SNAPSHOT.war /opt/tomcat/webapps/app.war
 CMD ["catalina.sh","run"]
