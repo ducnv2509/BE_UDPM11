@@ -20,14 +20,14 @@ public interface IInventoryRepo extends JpaRepository<Inventory, Integer> {
     List<Inventory> findAllActiveInventory();
 
     @Query(value = "select quantity from inventories_product_variant where inventory_id = ?1 and product_variant_id = ?2",nativeQuery = true)
-    Integer Quantity(Integer inventoryId, Integer productvariantId);
+    Integer Quantity(Integer inventoryId, Long productvariantId);
 
     @Query(value = "select min_quantity from inventories_product_variant where inventory_id = ?1 and product_variant_id = ?2",nativeQuery = true)
-    Integer minQuantity(Integer inventoryId, Integer productvariantId);
+    Integer minQuantity(Integer inventoryId, Long productvariantId);
 
     @Query(value = "call select_create_at(?1)",nativeQuery = true)
-    Timestamp createAt(Integer id);
+    Timestamp createAt(Long id);
 
     @Query(value = "select product_variant_id from inventories_product_variant where inventory_id = ?1 and  quantity <= min_quantity", nativeQuery = true)
-    List<Integer> findInventoriesQuantity(Integer id);
+    List<Long> findInventoriesQuantity(Long id);
 }

@@ -22,9 +22,10 @@ import java.util.List;
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class ProductVariant  implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Lob
     @Column(name = "image")
@@ -50,7 +51,7 @@ public class ProductVariant  implements Serializable {
     @Size(max = 250)
     private String name;
     @NotNull
-    private Integer productId;
+    private Long productId;
 
     @Column(name = "position")
     private Boolean position;

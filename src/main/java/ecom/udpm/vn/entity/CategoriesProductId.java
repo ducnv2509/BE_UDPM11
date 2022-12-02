@@ -19,7 +19,7 @@ import java.util.Objects;
 public class CategoriesProductId implements Serializable {
     private static final long serialVersionUID = 1462444433333616601L;
     @Column(name = "product_id", nullable = false)
-    private Integer productId;
+    private Long productId;
 
     @Column(name = "category_id", nullable = false)
     private Integer categoryId;
