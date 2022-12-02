@@ -52,7 +52,7 @@ public class AdminManagerOrderServiceImpl implements AdminManagerOrderService {
     @Override
     public List<OrderPurchase> searchOrdersAll(String querySearch) {
          String query = "select * from order_purchase where (account_name like concat('%', ?, '%') or id like concat('%', ?, '%') or address_id like concat('%', ?, '%') or phone_customer like concat('%', ?, '%')) Order By id desc";
-        return jdbcTemplate.query(query, new BeanPropertyRowMapper(OrderPurchase.class),querySearch, querySearch, querySearch);
+        return jdbcTemplate.query(query, new BeanPropertyRowMapper(OrderPurchase.class),querySearch, querySearch, querySearch, querySearch);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class AdminManagerOrderServiceImpl implements AdminManagerOrderService {
     @Override
     public List<OrderReturnResponse> searchOrdersReturn(String querySearch) {
         String query = "select * from return_invoice where (account_name like concat('%', ?, '%') or id_order_purchase like  concat('%', ?, '%')) order by id desc";
-        return jdbcTemplate.query(query, new BeanPropertyRowMapper(OrderReturnResponse.class), querySearch, querySearch, querySearch);
+        return jdbcTemplate.query(query, new BeanPropertyRowMapper(OrderReturnResponse.class), querySearch, querySearch);
     }
     @Override
     public List<OrderReturnItemResponse> showOrderReturnItemByIdOrder(Long idOrderReturn) {

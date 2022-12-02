@@ -2,12 +2,14 @@ package ecom.udpm.vn.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ecom.udpm.vn.dto.model.Metadata;
+import ecom.udpm.vn.dto.request.ProductAddDTO;
 import ecom.udpm.vn.dto.request.ProductAddRequest;
-import ecom.udpm.vn.dto.response.product.GetAllProduct;
-import ecom.udpm.vn.dto.response.product.ListProductResponse;
-import ecom.udpm.vn.dto.response.product.OptionProduct;
+import ecom.udpm.vn.dto.request.ProductFilter;
+import ecom.udpm.vn.dto.response.product.*;
 import ecom.udpm.vn.entity.*;
+import ecom.udpm.vn.entity.ProductVariant;
 import ecom.udpm.vn.repository.ICategoryProduct;
+import ecom.udpm.vn.repository.ICategoryRepo;
 import ecom.udpm.vn.repository.IProductRepo;
 import ecom.udpm.vn.repository.IVariantRepo;
 import ecom.udpm.vn.service.IProductService;
@@ -20,6 +22,8 @@ import org.springframework.validation.BindingResult;
 
 import javax.transaction.Transactional;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @AllArgsConstructor
@@ -32,6 +36,8 @@ public class ProductService implements IProductService {
 
     private final ObjectMapper objectMapper;
     private final ICategoryProduct categoryProductRepo;
+    private final ICategoryRepo categoryRepo;
+
 
     @Override
     @Transactional(rollbackOn = SQLException.class)
@@ -94,6 +100,7 @@ public class ProductService implements IProductService {
         json.put("option1", productVariant.getOption1());
         json.put("option2", productVariant.getOption2());
         json.put("option3", productVariant.getOption3());
+
         map.put("InfoProduct", json);
         map.put("Option1", option1.split(","));
         map.put("Option2", option2.split(","));
@@ -121,6 +128,86 @@ public class ProductService implements IProductService {
     @Override
     public Map<String, Object> getDetailProduct(Integer id) {
         return null;
+    }
+
+    @Override
+    public List<ProductFilterResponse> productFilter(ProductFilter filter, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) throw new RuntimeException("Invalid input ");
+        String query = "call filter_product(?,?,?,?,?,?)";
+        return jdbcTemplate.query(query, new BeanPropertyRowMapper(ProductFilterResponse.class),
+                filter.getKey(), filter.getSortBy(), filter.getIsDesc(), filter.getPage(), filter.getSize(), filter.getIsDelete());
+    }
+
+    @Override
+    public Integer countProductByFilter(ProductFilter filter, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) throw new RuntimeException("Invalid input ");
+//        String query="call filter_product(?,?,?,?,?,?)";
+//      Integer total=jdbcTemplate.query(query,new BeanPropertyRowMapper(Integer.class),
+//                filter.getKey(),filter.getSortBy(),filter.getIsDesc(),filter.getPage(),filter.getSize(),filter.getIsDelete());
+//
+        return productRepo.countProductByFilter(filter.getKey(), filter.getSortBy(), filter.getIsDesc(), filter.getPage(), filter.getSize(), filter.getIsDelete());
+    }
+
+    @Override
+    @Transactional(rollbackOn = SQLException.class)
+    public void deleteVariantById(Long id) {
+        var variant = variantRepo.findById(id).orElseThrow(() -> new RuntimeException("Id is not exist"));
+        variant.setIsDelete(true);
+        variantRepo.save(variant);
+    }
+
+    @Override
+    @Transactional(rollbackOn = SQLException.class)
+    public void deleteVariantsById(List<Long> listId) {
+        var variants = variantRepo.findAllById(listId);
+        for (ProductVariant variant : variants) {
+            variant.setIsDelete(true);
+        }
+        variantRepo.saveAll(variants);
+
+
+    }
+
+    @Override
+    @Transactional(rollbackOn = SQLException.class)
+    public void deleteProductsById(List<Long> listId) {
+        var products = productRepo.findAllById(listId);
+        for (Product product : products) {
+            product.setIsDelete(true);
+            deleteVariantsByProductId(product.getId());
+        }
+        productRepo.saveAll(products);
+    }
+
+    public  void deleteVariantsByProductId(Long productId)
+    {
+        String query="update product_variants set is_delete=true where product_id=?";
+        jdbcTemplate.update(query,productId);
+    }
+    @Override
+    @Transactional(rollbackOn = SQLException.class)
+    public ProductResponse update(ProductAddDTO request, BindingResult bindingResult) {
+        request.getProduct().setUpdateAt(Timestamp.valueOf(LocalDateTime.now()));
+        productRepo.save(request.getProduct());
+        variantRepo.saveAll(request.getVariants());
+        categoryProductRepo.deleteAllByProductId(request.getProduct().getId());
+        for (Category category : request.getCategories()) {
+            String q = "insert into categories_products values (?,?)";
+            jdbcTemplate.update(q, category.getId(),request.getProduct().getId());
+        }
+        return findById(request.getProduct().getId());
+    }
+    @Override
+    public ProductResponse findById(Long id) {
+        ProductResponse reponse = new ProductResponse(productRepo.findById(id).get(), variantRepo.findAllByProductId(id)
+                , categoryRepo.findAllByProductId(id));
+        return reponse;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        productRepo.deleteById(id);
     }
 
 
