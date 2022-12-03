@@ -22,7 +22,7 @@ public class InventoriesProductVariantId implements Serializable {
     private Integer inventoryId;
 
     @Column(name = "product_variant_id", nullable = false)
-    private Integer productVariantId;
+    private Long productVariantId;
 
 
     @Override
