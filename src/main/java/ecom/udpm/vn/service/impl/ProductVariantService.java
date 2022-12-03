@@ -26,7 +26,7 @@ public class ProductVariantService implements IProductVariantService {
 
     @Override
     public List<ProductVariantDTO> findAllProductVariantDTO(Integer pageNumber, Integer pageSize, String searchValue) {
-        String query = "call filter_product_variant_for_admin(?,?,?)";
+        String query = "call filter_product_variant(?,?,?)";
         return jdbcTemplate.query(query, new BeanPropertyRowMapper(ProductVariantDTO.class), pageNumber, pageSize, searchValue);
     }
 
