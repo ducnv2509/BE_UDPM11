@@ -63,10 +63,10 @@ public class InventoryServiceImpl implements IInventoryService {
         List<ProductVariantDTO> results = new ArrayList<>();
         Integer totalProductVariant = 0;
         Integer countProductVariant = 0;
-        Inventory inventory = inventoryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("id not found:" + id));
+        Inventory inventory = inventoryRepository.findById(id.intValue()).orElseThrow(() -> new IllegalArgumentException("id not found:" + id));
         try {
             inventoryResponse.setInventory(inventory);
-            List<ProductVariant> productVariants = productVariantsRepository.listProductVariantByName(id,name);
+            List<ProductVariant> productVariants = productVariantsRepository.listProductVariantByName(Long.valueOf(id),name);
             for (ProductVariant item : productVariants) {
                 ProductVariantDTO productVariantsDTO = toDto(item);
                 productVariantsDTO.setQuantity(inventoryRepository.Quantity(id, item.getId()));
@@ -99,7 +99,7 @@ public class InventoryServiceImpl implements IInventoryService {
 
     @Override
     public InventoriesProductVariant changeMinQuantity(Integer inventoryId, Integer productVariantId, Integer minQuantity) {
-        InventoriesProductVariant inventoriesProductVariant = iInventoriesProductVariantRepo.findByInventoryIdAndProductVariantId(inventoryId,productVariantId);
+        InventoriesProductVariant inventoriesProductVariant = iInventoriesProductVariantRepo.findByInventoryIdAndProductVariantId(inventoryId, Long.valueOf(productVariantId));
         inventoriesProductVariant.setMin_quantity(minQuantity);
         iInventoriesProductVariantRepo.save(inventoriesProductVariant);
         return inventoriesProductVariant;
@@ -108,7 +108,7 @@ public class InventoryServiceImpl implements IInventoryService {
     @Override
     public List<ProductVariantDTO> findInventoriesQuantity(Integer id) {
         List<ProductVariantDTO> results = new ArrayList<>();
-        List<ProductVariant> productVariants = productVariantsRepository.findAllById(inventoryRepository.findInventoriesQuantity(id));
+        List<ProductVariant> productVariants = productVariantsRepository.findAllById(inventoryRepository.findInventoriesQuantity(Long.valueOf(id)));
         for (ProductVariant item : productVariants) {
             ProductVariantDTO productVariantsDTO = toDto(item);
             productVariantsDTO.setQuantity(inventoryRepository.Quantity(id, item.getId()));

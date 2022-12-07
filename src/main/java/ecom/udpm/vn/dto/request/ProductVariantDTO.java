@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Data
 public class ProductVariantDTO {
-    private Integer id;
+    private Long id;
     private String code;
     private String name;
     private String image;

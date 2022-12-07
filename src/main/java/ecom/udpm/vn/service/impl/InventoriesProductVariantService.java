@@ -20,7 +20,7 @@ public class InventoriesProductVariantService implements IInventoriesProductVari
 
     @Override
     public InventoriesProductVariant findByInventoryIdAndProductVariantId(Integer inventoryId, Integer productVariantId) {
-        return inventoriesProductVariantRepo.findByInventoryIdAndProductVariantId(inventoryId, productVariantId);
+        return inventoriesProductVariantRepo.findByInventoryIdAndProductVariantId(inventoryId, Long.valueOf(productVariantId));
     }
 
     @Override
@@ -32,7 +32,7 @@ public class InventoriesProductVariantService implements IInventoriesProductVari
         for (DetailsImport detailsImport : list) {
             Integer productVariantId = detailsImport.getProduct_variant_id();
             InventoriesProductVariant inventoriesProductVariant = inventoriesProductVariantRepo
-                    .findByInventoryIdAndProductVariantId(inventoryId, productVariantId);
+                    .findByInventoryIdAndProductVariantId(inventoryId, Long.valueOf(productVariantId));
             if (inventoriesProductVariant == null) {
                 InventoriesProductVariantRequest request = new InventoriesProductVariantRequest(inventoryId, productVariantId, detailsImport.getQuantity());
                 InventoriesProductVariant in = modelMapper.map(request, InventoriesProductVariant.class);

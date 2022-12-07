@@ -3,6 +3,7 @@ package ecom.udpm.vn.controller;
 import ecom.udpm.vn.dto.request.ProductVariantDTO;
 import ecom.udpm.vn.service.IProductVariantService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @RequestMapping("/api/product-variants")
 @CrossOrigin("*")
 @AllArgsConstructor
+@PreAuthorize("hasAnyAuthority('admin','employee')")
 public class ProductVariantController {
     private final IProductVariantService productVariantService;
 
