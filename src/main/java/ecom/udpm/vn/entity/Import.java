@@ -49,13 +49,14 @@ import java.util.List;
                 "         inner join imports i on di.import_id = i.id\n" +
                 "         inner join inventories i2 on i.inventory_id = i2.id\n" +
                 "         inner join supplier s on i.supplier_id = s.id\n" +
-                "where i.code = ?\n" +
-                "group by di.id, pv.code, pv.name, di.import_price, s.name;",
+                "where i.code = ? \n" +
+                "group by di.id, " +  "pv.code, pv.name, di.import_price, s.name;",
         resultSetMapping = "FeaturedReturnImport"
 )
 @NamedNativeQuery(
         name = "getImportReturnDTOResponse",
-        query = "select di.id                                            as detailsImportId,\n" +
+        query = "set @@sql_mode = '';" +
+                "select di.id                                            as detailsImportId,\n" +
                 "       pv.code,\n" +
                 "       pv.name,\n" +
                 "       if(ri.quantity >=0 , sum(ri.quantity), 0) as quantity,\n" +
@@ -71,7 +72,8 @@ import java.util.List;
                 "         inner join inventories i2 on i.inventory_id = i2.id\n" +
                 "         inner join supplier s on i.supplier_id = s.id\n" +
                 "where r.id = ?\n" +
-                "group by di.id, pv.code, pv.name, di.import_price, s.name;",
+                "group by di.id ," +
+                "pv.code, pv.name, di.import_price, s.name;",
         resultSetMapping = "FeaturedReturnImport"
 )
 @SqlResultSetMapping(

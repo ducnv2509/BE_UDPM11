@@ -6,6 +6,7 @@ import ecom.udpm.vn.dto.response.revenue.RevenueResponse;
 import ecom.udpm.vn.service.impl.RevenueService;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RequestMapping("api/tracking")
 @AllArgsConstructor
+@PreAuthorize("hasAnyAuthority('admin')")
 public class TrackingController {
     private final RevenueService revenueService;
 

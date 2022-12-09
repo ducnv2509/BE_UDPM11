@@ -6,6 +6,7 @@ import ecom.udpm.vn.dto.request.ProductFilter;
 import ecom.udpm.vn.service.IProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RequestMapping("api/products")
 @AllArgsConstructor
+@PreAuthorize("hasAnyAuthority('admin','employee')")
 public class ProductController {
 
     private final IProductService productService;
