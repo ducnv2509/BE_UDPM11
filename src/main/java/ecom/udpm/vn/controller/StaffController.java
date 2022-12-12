@@ -64,7 +64,7 @@ public class StaffController {
         try {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String strDate = dateFormat.format(request.getDob());
-            sendMailService.sendMail(request.getName(), request.getPhone(), request.getAddress(), request.getRoleId() == 1 ? "Quản lý" : "Nhân viên", request.getUsername(), strDate, request.getEmail());
+//            sendMailService.sendMail(request.getName(), request.getPhone(), request.getAddress(), request.getRoleId() == 1 ? "Quản lý" : "Nhân viên", request.getUsername(), strDate, request.getEmail());
         } catch (Exception e) {
             throw new StaffException("Server email error");
         }

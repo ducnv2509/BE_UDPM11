@@ -44,7 +44,7 @@ public class ProductService implements IProductService {
     public ProductAddRequest save(ProductAddRequest request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) throw new RuntimeException("Input Invalid");
         Product product = request.getProduct();
-//        request.getVariants().get(0).setPosition(true);
+        request.getVariants().get(0).setPosition(true);
 //        variantRepo.save(request.getVariants().get(0));
         product.setCode(getNewCode());
         request.setProduct(productRepo.save(product));
