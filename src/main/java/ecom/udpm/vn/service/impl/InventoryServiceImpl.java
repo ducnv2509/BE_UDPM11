@@ -98,6 +98,12 @@ public class InventoryServiceImpl implements IInventoryService {
     }
 
     @Override
+    public Inventory findById(Integer id) {
+        Inventory inventory = inventoryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("id not found: " + id));
+        return inventory;
+    }
+
+    @Override
     public InventoriesProductVariant changeMinQuantity(Integer inventoryId, Integer productVariantId, Integer minQuantity) {
         InventoriesProductVariant inventoriesProductVariant = iInventoriesProductVariantRepo.findByInventoryIdAndProductVariantId(inventoryId, Long.valueOf(productVariantId));
         inventoriesProductVariant.setMin_quantity(minQuantity);
