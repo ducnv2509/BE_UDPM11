@@ -17,6 +17,7 @@ public interface IInventoryService {
     List<Inventory> findAllActiveInventory();
     Inventory update(Integer id, Inventory inventory, BindingResult bindingResult);
 
+    Inventory findById(Integer id);
 
     void updateStatusInventory(Integer id);
 

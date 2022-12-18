@@ -21,7 +21,6 @@ import java.util.Map;
 @AllArgsConstructor
 @RequestMapping("/inventories")
 @CrossOrigin("*")
-
 public class InventoryController {
     private final IInventoryRepo iInventoryRepo;
 
@@ -72,7 +71,10 @@ public class InventoryController {
     public List<ProductVariantDTO> getInventoriesQuantity(@RequestParam(value = "id") Integer id) {
         return iInventoryService.findInventoriesQuantity(id);
     }
-
+    @GetMapping("/{id}")
+    public Inventory getById(@PathVariable(value = "id") Integer id) {
+        return iInventoryService.findById(id);
+    }
     @GetMapping("/active")
     public List<Inventory> getAllActiveInventory() {
         return iInventoryRepo.findAllActiveInventory();
