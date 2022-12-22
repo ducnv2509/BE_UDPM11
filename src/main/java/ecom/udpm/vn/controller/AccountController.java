@@ -1,8 +1,11 @@
 package ecom.udpm.vn.controller;
 
+import ecom.udpm.vn.dto.request.DTOEmployeeRequest;
 import ecom.udpm.vn.dto.response.Account.AccountDTO;
+import ecom.udpm.vn.dto.response.employee.DTOEmployeeResponse;
 import ecom.udpm.vn.entity.Account;
 import ecom.udpm.vn.service.impl.AccountService;
+import ecom.udpm.vn.service.impl.StaffService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -47,6 +50,11 @@ public class AccountController {
 	public ResponseEntity<Object> createAccount(@Valid @RequestBody AccountDTO accountDTO) {
 		return ResponseEntity.ok(accountService.save(accountDTO));
 	}
+
+//	@PostMapping
+//	public ResponseEntity<Object> createAccount(@Valid @RequestBody DTOEmployeeRequest accountDTO) {
+//		return ResponseEntity.ok(staffService.createAccountEmployee(accountDTO));
+//	}
 
 	@PatchMapping
 	public ResponseEntity<Object> editAccount(@Valid @RequestBody AccountDTO accountDTO) {

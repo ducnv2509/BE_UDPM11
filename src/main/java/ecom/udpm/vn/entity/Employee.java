@@ -33,7 +33,10 @@ public class Employee implements Serializable {
 
     @Column(name = "address", nullable = false, length = 500)
     private String address;
+    private String code;
 
+    @Column(name = "gender", nullable = false, length = 500)
+    private boolean gender;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "account_id", nullable = false)

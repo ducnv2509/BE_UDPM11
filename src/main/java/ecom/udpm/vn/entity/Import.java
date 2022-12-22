@@ -55,8 +55,7 @@ import java.util.List;
 )
 @NamedNativeQuery(
         name = "getImportReturnDTOResponse",
-        query = "set @@sql_mode = '';" +
-                "select di.id                                            as detailsImportId,\n" +
+        query = "select di.id                                            as detailsImportId,\n" +
                 "       pv.code,\n" +
                 "       pv.name,\n" +
                 "       if(ri.quantity >=0 , sum(ri.quantity), 0) as quantity,\n" +

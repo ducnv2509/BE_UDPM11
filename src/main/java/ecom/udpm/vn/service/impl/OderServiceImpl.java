@@ -37,7 +37,7 @@ public class OderServiceImpl implements IOrderService {
 
     @Override
     public ResponseEntity<byte[]> createPdf(Integer id_account, Integer id_order) throws FileNotFoundException, JRException {
-        String query = "select ROW_NUMBER() OVER(PARTITION BY a.id) AS row_num, a.id, c.name, a.account_name, a.created_time, a.address_id,\n" +
+        String query = "select a.id, c.name, a.account_name, a.created_time, a.address_id,\n" +
                     "        b.quantity, b.price, a.total_quantity, a.total_price, a.fee_money, d.phone\n" +
                     "from order_purchase a\n" +
                     "         join order_purchase_items b on a.id = b.id_order\n" +

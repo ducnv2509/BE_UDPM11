@@ -1,5 +1,6 @@
 package ecom.udpm.vn.service;
 
+import ecom.udpm.vn.entity.Employee;
 import ecom.udpm.vn.entity.Staff;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
@@ -13,7 +14,7 @@ public interface IStaffService {
 
     Page<Staff> findAll(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 
-    List<Staff> findAll();
+    List<Employee> findAll();
 
     Staff create(Staff s, BindingResult bindingResult);
 
@@ -21,7 +22,7 @@ public interface IStaffService {
 
     ByteArrayInputStream loadExcel();
 
-    Staff findById(Long id);
+    Employee findById(Integer id);
 
     Staff update(Staff s, BindingResult bindingResult);
 

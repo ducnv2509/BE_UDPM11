@@ -80,7 +80,7 @@ public class ProductController {
         productService.deleteVariantById(id);
     }
 
-    @DeleteMapping("/variants")
+    @PostMapping("/variants")
     public void deleteVariant(@RequestBody List<Long>listId) {
         productService.deleteVariantsById(listId);
     }

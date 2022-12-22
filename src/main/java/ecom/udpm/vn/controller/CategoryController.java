@@ -16,7 +16,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RequestMapping("/api/categories")
 @AllArgsConstructor
-@PreAuthorize("hasAnyAuthority('admin')")
+
 public class CategoryController {
     public final ICategoryService iCategoryService;
 
@@ -24,27 +24,28 @@ public class CategoryController {
     public List<Category> getAll(@RequestParam(value = "valueInput", required = false) String valueInput){
         return iCategoryService.getAll(valueInput);
     }
-
+    @PreAuthorize("hasAnyAuthority('admin')")
     @GetMapping("/getAll")
     public List<Category> getAllCategories(){
         return iCategoryService.findALl();
     }
-
+    @PreAuthorize("hasAnyAuthority('admin')")
     @PostMapping
     public Category create(@RequestBody @Valid Category request, BindingResult bindingResult) {
         return iCategoryService.addCategories(request, bindingResult);
     }
-
+    @PreAuthorize("hasAnyAuthority('admin')")
     @GetMapping("{id}")
     public Category findById(@PathVariable(value = "id") Integer id) {
         return iCategoryService.findById(id);
     }
 
-
+    @PreAuthorize("hasAnyAuthority('admin')")
     @PutMapping
     public Category update(@RequestBody @Valid Category entity, BindingResult bindingResult) {
         return iCategoryService.update(entity, bindingResult);
     }
+    
 
 
 }

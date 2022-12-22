@@ -1,10 +1,17 @@
 package ecom.udpm.vn.service.impl;
 
+import ecom.udpm.vn.dto.request.DTOEmployeeRequest;
+import ecom.udpm.vn.dto.request.DTOFindByIdEmployee;
+import ecom.udpm.vn.dto.request.DTOUpdateAccountStaffRequest;
+import ecom.udpm.vn.dto.response.employee.DTOEmployeeResponse;
+import ecom.udpm.vn.entity.Employee;
+import ecom.udpm.vn.entity.OrderPurchaseItems;
 import ecom.udpm.vn.entity.Staff;
 import ecom.udpm.vn.exception.AlreadyExistsException;
 import ecom.udpm.vn.exception.StaffException;
 import ecom.udpm.vn.helper.Excel.ExcelStaff;
 import ecom.udpm.vn.helper.Utils;
+import ecom.udpm.vn.repository.EmployeeRepository;
 import ecom.udpm.vn.repository.IStaffRepo;
 import ecom.udpm.vn.service.IStaffService;
 import ecom.udpm.vn.service.SendMailService;
@@ -13,6 +20,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,9 +40,30 @@ import java.util.Locale;
 @RequiredArgsConstructor
 public class StaffService implements IStaffService {
     private final IStaffRepo iStaffRepo;
+    private final EmployeeRepository employeeRepository;
 
     private final Utils utils;
     private final SendMailService sendMailService;
+    private final JdbcTemplate jdbcTemplate;
+
+    public List<DTOEmployeeResponse> createAccountEmployee(DTOEmployeeRequest request) {
+        String query = "call createEmployeeAccount(?,?,?, ?, ?, ?,?)";
+        String password = "abc@123";
+        String hash = BCrypt.hashpw(password, BCrypt.gensalt(12));
+        return jdbcTemplate.query(query, new BeanPropertyRowMapper(DTOEmployeeResponse.class), hash, request.getAddress(), request.getEmail(), request.getFullName(), request.getPhone(), request.getRoleId(), request.isGender());
+    }
+
+    public DTOFindByIdEmployee findEmployeeById(Integer id) {
+        String query = "select employees.id, address, email, full_name, phone, code, gender, create_at, is_delete, update_at, username, ar.role_id, a.id as 'id_account' from employees join accounts a on employees.account_id = a.id\n" +
+                "join accounts_roles ar on a.id = ar.account_id\n" +
+                "where employees.id = ?";
+        return (DTOFindByIdEmployee) jdbcTemplate.query(query, new BeanPropertyRowMapper(DTOFindByIdEmployee.class), id).get(0);
+    }
+
+    public void updateAccountStaff(DTOUpdateAccountStaffRequest request) {
+        String query = "call updateAccountStaff(?,?,?)";
+        jdbcTemplate.query(query, new BeanPropertyRowMapper(DTOFindByIdEmployee.class), request.getRole_id(), request.getDelete(), request.getId());
+    }
 
     @Override
     public Page<Staff> findAll(Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
@@ -45,8 +75,8 @@ public class StaffService implements IStaffService {
     }
 
     @Override
-    public List<Staff> findAll() {
-        return this.iStaffRepo.findAllByIsDelete();
+    public List<Employee> findAll() {
+        return this.employeeRepository.findAll();
     }
 
     @Override
@@ -116,8 +146,8 @@ public class StaffService implements IStaffService {
     }
 
     @Override
-    public Staff findById(Long id) {
-        return this.iStaffRepo.findById(id).orElseThrow(() -> new StaffException("id not found: " + id));
+    public Employee findById(Integer id) {
+        return this.employeeRepository.findById(id).orElseThrow(() -> new StaffException("id not found: " + id));
     }
 
     @Override

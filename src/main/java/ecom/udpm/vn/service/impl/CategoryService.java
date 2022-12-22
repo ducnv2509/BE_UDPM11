@@ -20,12 +20,13 @@ import java.util.List;
 public class CategoryService implements ICategoryService {
 
     private final ICategoryV2 iCategoryRepo;
+    private final ICategoryRepo categoryRepo;
     private final Utils utils;
 
 
     @Override
     public List<Category> getAll(String valueInput) {
-        return null;
+        return categoryRepo.getAllByName(valueInput);
     }
 
     @Override

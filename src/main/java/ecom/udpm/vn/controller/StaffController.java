@@ -1,5 +1,8 @@
 package ecom.udpm.vn.controller;
 
+import ecom.udpm.vn.dto.request.DTOEmployeeRequest;
+import ecom.udpm.vn.dto.request.DTOUpdateAccountStaffRequest;
+import ecom.udpm.vn.entity.Employee;
 import ecom.udpm.vn.entity.Staff;
 import ecom.udpm.vn.exception.ErrorMessage;
 import ecom.udpm.vn.exception.StaffException;
@@ -7,6 +10,7 @@ import ecom.udpm.vn.helper.Excel.ExcelStaff;
 import ecom.udpm.vn.helper.Excel.ExcelSupplier;
 import ecom.udpm.vn.service.IStaffService;
 import ecom.udpm.vn.service.SendMailService;
+import ecom.udpm.vn.service.impl.StaffService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.json.JSONObject;
@@ -32,6 +36,7 @@ import java.net.ProtocolException;
 
 import java.net.URL;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -43,47 +48,55 @@ import java.util.List;
 @CrossOrigin("*")
 @RequestMapping("api/staffs")
 @AllArgsConstructor
-@PreAuthorize("hasAnyAuthority('admin')")
 public class StaffController {
     private final IStaffService staffService;
+    private final StaffService getStaffServiceV2;
     private final SendMailService sendMailService;
+    private final StaffService staffServiceV2;
 
     @GetMapping
     public Page<Staff> getPagination(@RequestParam(value = "pageNumber", required = true) int pageNumber, @RequestParam(value = "pageSize", required = true) int pageSize, @RequestParam(value = "sortBy", required = false) String sortBy, @RequestParam(value = "sortDir", required = false) String sortDir) {
         return this.staffService.findAll(pageNumber, pageSize, sortBy, sortDir);
     }
 
-
+    @PreAuthorize("hasAnyAuthority('admin')")
     @GetMapping("/findAll")
-    public List<Staff> list() {
+    public List<Employee> list() {
         return this.staffService.findAll();
     }
-
-    @PostMapping
-    public Staff create(@RequestBody @Valid Staff request, BindingResult bindingResult) {
-        try {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            String strDate = dateFormat.format(request.getDob());
-//            sendMailService.sendMail(request.getName(), request.getPhone(), request.getAddress(), request.getRoleId() == 1 ? "Quản lý" : "Nhân viên", request.getUsername(), strDate, request.getEmail());
-        } catch (Exception e) {
-            throw new StaffException("Server email error");
-        }
-        return this.staffService.create(request, bindingResult);
+    @PutMapping("/status/{roleId}/{status}/{id}")
+    public void update(@PathVariable Integer roleId, @PathVariable Boolean status, @PathVariable Integer id) {
+        DTOUpdateAccountStaffRequest request = new DTOUpdateAccountStaffRequest( roleId, status,id);
+        this.getStaffServiceV2.updateAccountStaff(request);
     }
+//    @PostMapping
+//    public Staff create(@RequestBody @Valid Staff request, BindingResult bindingResult) {
+//        try {
+//            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//            String strDate = dateFormat.format(request.getDob());
+////            sendMailService.sendMail(request.getName(), request.getPhone(), request.getAddress(), request.getRoleId() == 1 ? "Quản lý" : "Nhân viên", request.getUsername(), strDate, request.getEmail());
+//        } catch (Exception e) {
+//            throw new StaffException("Server email error");
+//        }
+//        return this.staffService.create(request, bindingResult);
+//    }
 
+    @PreAuthorize("hasAnyAuthority('admin')")
+	@PostMapping
+	public ResponseEntity<Object> createAccount(@Valid @RequestBody DTOEmployeeRequest accountDTO) {
+		return ResponseEntity.ok(staffServiceV2.createAccountEmployee(accountDTO));
+	}
 
+    @PreAuthorize("hasAnyAuthority('admin')")
     @GetMapping("{id}")
-    public Staff findById(@PathVariable(value = "id") Long id) {
-        return this.staffService.findById(id);
+    public ResponseEntity<Object> findById(@PathVariable(value = "id") Integer id) {
+        return ResponseEntity.ok(this.getStaffServiceV2.findEmployeeById(id));
     }
 
     // với admin chỉ xem được tt của nhân viên và thay đổi được trạng thái (xoá, active)
 
-    @PutMapping("{status}/{roleId}/{id}")
-    public void update(@PathVariable Boolean status, @PathVariable Long roleId, @PathVariable Long id) {
-        this.staffService.updateStaffById(status, roleId, id, new Date());
-    }
 
+    @PreAuthorize("hasAnyAuthority('admin')")
     @PutMapping("/delete")
     public void softDeleteAllIds(@RequestBody List<Long> id) {
         this.staffService.softDeleteAllIds(id);
@@ -96,7 +109,7 @@ public class StaffController {
         } else this.staffService.updateStatusFalseAccount(ids);
     }
 
-
+    @PreAuthorize("hasAnyAuthority('admin')")
     @PostMapping("/upload")
     public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
         System.out.println("INNNNN");
@@ -117,7 +130,7 @@ public class StaffController {
         message = "Please upload an excel file!";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorMessage.builder().code("ALREADY_EXIST").message(message));
     }
-
+    @PreAuthorize("hasAnyAuthority('admin')")
     @GetMapping("/download")
     public ResponseEntity<Resource> getFile() {
         String filename = "staff.xlsx";
