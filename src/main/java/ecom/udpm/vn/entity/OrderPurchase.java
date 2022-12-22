@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -27,6 +28,6 @@ public class OrderPurchase {
     private Integer total_quantity;
     private Integer status;
     private Integer type;
-    private Timestamp created_time;
+    private Date created_time;
     private String code;
 }

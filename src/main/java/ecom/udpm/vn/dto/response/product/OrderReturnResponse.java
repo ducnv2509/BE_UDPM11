@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @AllArgsConstructor
-@Getter
+@Getter                     
 @Setter
 @NoArgsConstructor
 public class OrderReturnResponse {
@@ -22,4 +22,6 @@ public class OrderReturnResponse {
     private int statusReturn;
     private BigDecimal totalPriceReturn;
     private BigDecimal totalQuantityReturn;
+    private String code;
+    private String code_order_purchase;
 }

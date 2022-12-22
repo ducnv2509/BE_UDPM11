@@ -51,7 +51,7 @@ public class AdminManagerOrderServiceImpl implements AdminManagerOrderService {
 
     @Override
     public List<OrderPurchase> searchOrdersAll(String querySearch) {
-         String query = "select * from order_purchase where (account_name like concat('%', ?, '%') or id like concat('%', ?, '%') or address_id like concat('%', ?, '%') or phone_customer like concat('%', ?, '%')) Order By id desc";
+         String query = "select * from order_purchase where (account_name like concat('%', ?, '%') or code like concat('%', ?, '%') or address_id like concat('%', ?, '%') or phone_customer like concat('%', ?, '%')) Order By id desc";
         return jdbcTemplate.query(query, new BeanPropertyRowMapper(OrderPurchase.class),querySearch, querySearch, querySearch, querySearch);
     }
 
@@ -78,12 +78,12 @@ public class AdminManagerOrderServiceImpl implements AdminManagerOrderService {
 
     @Override
     public List<OrderReturnResponse> showOrdeReturn() {
-        return  jdbcTemplate.query("select * from return_invoice order by id desc", new BeanPropertyRowMapper(OrderReturnResponse.class) );
+        return  jdbcTemplate.query("select r.*, o.code as 'code_order_purchase'  from return_invoice r join order_purchase o on r.id_order_purchase= o.id order by r.id desc", new BeanPropertyRowMapper(OrderReturnResponse.class) );
     }
     @Override
     public List<OrderReturnResponse> searchOrdersReturn(String querySearch) {
-        String query = "select * from return_invoice where (account_name like concat('%', ?, '%') or id_order_purchase like  concat('%', ?, '%')) order by id desc";
-        return jdbcTemplate.query(query, new BeanPropertyRowMapper(OrderReturnResponse.class), querySearch, querySearch);
+        String query = "select r.*, op.code as 'code_order_purchase' from return_invoice r join order_purchase op on r.id_order_purchase = op.id where (r.account_name like concat('%', ?, '%') or op.code like  concat('%', ?, '%')or r.code like  concat('%', ?, '%')) order by r.id desc";
+        return jdbcTemplate.query(query, new BeanPropertyRowMapper(OrderReturnResponse.class), querySearch, querySearch, querySearch);
     }
     @Override
     public List<OrderReturnItemResponse> showOrderReturnItemByIdOrder(Long idOrderReturn) {
