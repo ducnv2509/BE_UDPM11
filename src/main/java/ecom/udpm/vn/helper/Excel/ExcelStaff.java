@@ -1,5 +1,6 @@
 package ecom.udpm.vn.helper.Excel;
 
+import ecom.udpm.vn.entity.Employee;
 import ecom.udpm.vn.entity.Staff;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class ExcelStaff {
     public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-    static String[] HEADERS = {"Code", "Name", "Email", "Phone", "Address", "Created date", "Modify date", "Is delete", "Status account", "Username", "Dob", "Gender", "Role"};
+    static String[] HEADERS = {"Địa chỉ", "Email", "Họ Tên", "Số điện thoại", "Mã Nhân viên", "Giới tính"};
     static String SHEET = "Staff";
 
     public static boolean hasExcelFormat(MultipartFile file) {
@@ -99,7 +100,7 @@ public class ExcelStaff {
 
 
 
-    public static ByteArrayInputStream staffToExcel(List<Staff> staffs) {
+    public static ByteArrayInputStream staffToExcel(List<Employee> staffs) {
         try (Workbook workbook = new XSSFWorkbook(); ByteArrayOutputStream out = new ByteArrayOutputStream();) {
             Sheet sheet = workbook.createSheet(SHEET);
             // Header
@@ -109,23 +110,14 @@ public class ExcelStaff {
                 cell.setCellValue(HEADERS[col]);
             }
             int rowIdx = 1;
-            for (Staff staff : staffs) {
-                Date dateCreate = new Date(staff.getCreatedAt().getTime());
-                Date modifyDate = new Date(staff.getUpdateAt().getTime());
+            for (Employee staff : staffs) {
                 Row row = sheet.createRow(rowIdx++);
-                row.createCell(0).setCellValue(staff.getCode());
-                row.createCell(1).setCellValue(staff.getName());
-                row.createCell(2).setCellValue(staff.getEmail());
+                row.createCell(0).setCellValue(staff.getAddress());
+                row.createCell(1).setCellValue(staff.getEmail());
+                row.createCell(2).setCellValue(staff.getFullName());
                 row.createCell(3).setCellValue(staff.getPhone());
-                row.createCell(4).setCellValue(staff.getAddress());
-                row.createCell(5).setCellValue(dateCreate);
-                row.createCell(6).setCellValue(modifyDate);
-                row.createCell(7).setCellValue(staff.getIsDelete() ? "Đã Xoá" : "Chưa Xoá");
-                row.createCell(8).setCellValue(staff.getStatusAccount() ? "Hoạt động" : "Khoá");
-                row.createCell(9).setCellValue(staff.getUsername());
-                row.createCell(10).setCellValue(staff.getDob());
-                row.createCell(11).setCellValue(staff.getGender() ? "Nam" : "Nữ");
-                row.createCell(12).setCellValue(staff.getRoleId() == 1L ? "ADMIN" : "STAFF");
+                row.createCell(4).setCellValue(staff.getCode());
+                row.createCell(5).setCellValue(staff.isGender() ? "Nam" : "Nữ");
             }
             workbook.write(out);
             return new ByteArrayInputStream(out.toByteArray());

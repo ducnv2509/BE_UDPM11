@@ -130,7 +130,7 @@ public class StaffController {
         message = "Please upload an excel file!";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorMessage.builder().code("ALREADY_EXIST").message(message));
     }
-    @PreAuthorize("hasAnyAuthority('admin')")
+//    @PreAuthorize("hasAnyAuthority('admin')")
     @GetMapping("/download")
     public ResponseEntity<Resource> getFile() {
         String filename = "staff.xlsx";

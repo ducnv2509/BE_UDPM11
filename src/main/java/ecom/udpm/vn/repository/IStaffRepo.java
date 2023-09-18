@@ -1,5 +1,6 @@
 package ecom.udpm.vn.repository;
 
+import ecom.udpm.vn.entity.Employee;
 import ecom.udpm.vn.entity.Staff;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -20,8 +21,9 @@ public interface IStaffRepo extends JpaRepository<Staff, Long> {
     Optional<Staff> findByUsername(String username);
 
 
-    @Query(value = "select s from Staff s where s.isDelete = false")
-    List<Staff> findAllByIsDelete();
+
+    @Query(value = "select s.address, s.email, s.fullName, s.phone, s.code, s.gender, a.createAt, a.isDelete, a.updateAt, a.username from Employee s join Account a on a.id = s.account.id")
+    List<Employee> findAllByIsDelete();
 
     @Modifying
     @Transactional

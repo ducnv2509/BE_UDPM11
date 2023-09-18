@@ -32,7 +32,7 @@ public class RevenueService {
 
         if (filter.getStartTime() != null && filter.getEndTime() != null) {
             queryFilter = "select DATE_FORMAT(orders.created_time, :timeType) as date,\n" +
-                    "       round(sum(orders.total_price) - ifnull(sum(money_return), 0)  +\n" +
+                    "       round(ifnull(sum(orders.total_price),0) - ifnull(sum(money_return), 0)  +\n" +
                     "             ifnull(sum(orders.fee_money), 0))                 as netRevenure\n" +
                     "from order_purchase orders\n" +
                     "         inner join order_by_status_history orderHis on orders.id = orderHis.order_purchase_id\n" +
@@ -42,7 +42,7 @@ public class RevenueService {
                     "group by date\n" +
                     "order by date asc;".toString();
             queryFilterLastPeriod = "select DATE_FORMAT(orders.created_time, :timeType) as date,\n" +
-                    "       round(sum(orders.total_price) - ifnull(sum(money_return), 0)  +\n" +
+                    "       round(ifnull(sum(orders.total_price),0) - ifnull(sum(money_return), 0)  +\n" +
                     "             ifnull(sum(orders.fee_money), 0))                 as netRevenure\n" +
                     "from order_purchase orders\n" +
                     "         inner join order_by_status_history orderHis on orders.id = orderHis.order_purchase_id\n" +

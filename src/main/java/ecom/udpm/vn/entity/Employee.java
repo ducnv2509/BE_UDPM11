@@ -3,6 +3,8 @@ package ecom.udpm.vn.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,6 +13,8 @@ import java.io.Serializable;
 @Table(name = "employees")
 @Getter
 @Setter
+@EntityListeners(AuditingEntityListener.class)
+@ToString
 public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

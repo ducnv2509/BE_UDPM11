@@ -107,6 +107,7 @@ public class StaffService implements IStaffService {
     @Override
     public void save(MultipartFile file) {
         try {
+            double a;
             System.out.println("Service - 3");
             List<Staff> staff = ExcelStaff.excelToStaffs(file.getInputStream());
             for (Staff s : staff
@@ -140,7 +141,7 @@ public class StaffService implements IStaffService {
 
     @Override
     public ByteArrayInputStream loadExcel() {
-        List<Staff> tutorials = this.iStaffRepo.findAllByIsDelete();
+        List<Employee> tutorials = this.employeeRepository.findExcel();
         ByteArrayInputStream in = ExcelStaff.staffToExcel(tutorials);
         return in;
     }
